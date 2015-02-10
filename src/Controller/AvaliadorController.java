@@ -1,8 +1,8 @@
 
 package Controller;
 
-import Model.Avaliador;
 import Model.Database.AvaliadorDAO;
+import Model.Tabelas.Avaliador;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

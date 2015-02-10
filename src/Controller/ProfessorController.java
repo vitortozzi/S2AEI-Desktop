@@ -1,8 +1,8 @@
 
 package Controller;
 
-import Model.Professor;
 import Model.Database.ProfessorDAO;
+import Model.Tabelas.Professor;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

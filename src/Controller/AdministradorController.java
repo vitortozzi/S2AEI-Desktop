@@ -1,8 +1,9 @@
 
 package Controller;
 
-import Model.Administrador;
+
 import Model.Database.AdministradorDAO;
+import Model.Tabelas.Administrador;
 
 import java.util.ArrayList;
 import javax.swing.JTable;

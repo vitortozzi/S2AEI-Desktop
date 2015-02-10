@@ -5,8 +5,9 @@
  */
 package View;
 
-import Model.Professor;
+
 import Controller.ProfessorController;
+import Model.Tabelas.Professor;
 import java.awt.CardLayout;
 
 import java.util.ArrayList;

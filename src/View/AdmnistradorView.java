@@ -2,7 +2,7 @@
 package View;
 
 import Controller.AdministradorController;
-import Model.Administrador;
+import Model.Tabelas.Administrador;
 
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;

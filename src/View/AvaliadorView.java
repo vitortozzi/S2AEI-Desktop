@@ -2,7 +2,7 @@
 package View;
 
 import Controller.AvaliadorController;
-import Model.Avaliador;
+import Model.Tabelas.Avaliador;
 
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
