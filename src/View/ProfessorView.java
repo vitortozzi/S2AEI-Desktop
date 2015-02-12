@@ -585,7 +585,7 @@ public class ProfessorView extends javax.swing.JFrame {
 
     private void bttnVoltarProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarProfessoresActionPerformed
         dispose();
-        new Index().setVisible(true);
+        new HomeAdministrador().setVisible(true);
     }//GEN-LAST:event_bttnVoltarProfessoresActionPerformed
 
     /**

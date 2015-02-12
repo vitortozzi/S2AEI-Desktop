@@ -512,7 +512,7 @@ public class AvaliadorView extends javax.swing.JFrame {
 
     private void bttnVoltarAvaliadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarAvaliadorActionPerformed
         dispose();
-        new Index().setVisible(true);
+        new HomeAdministrador().setVisible(true);
     }//GEN-LAST:event_bttnVoltarAvaliadorActionPerformed
 
     private void bttnConfirmAddAvaliadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmAddAvaliadorActionPerformed

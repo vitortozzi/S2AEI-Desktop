@@ -173,7 +173,7 @@ public class Login extends javax.swing.JFrame {
         switch(temp) {
             case 0:
                 dispose();
-                new Index().setVisible(true);
+                new HomeAdministrador().setVisible(true);
             break;
             
             case 1:

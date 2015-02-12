@@ -521,7 +521,7 @@ public class AdmnistradorView extends javax.swing.JFrame {
 
     private void bttnVoltarAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarAdmActionPerformed
         dispose();
-        new Index().setVisible(true);
+        new HomeAdministrador().setVisible(true);
     }//GEN-LAST:event_bttnVoltarAdmActionPerformed
 
     /**
