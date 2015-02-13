@@ -70,10 +70,10 @@
                       <Component id="jScrollPane1" pref="649" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -100,7 +100,7 @@
                 <Component class="javax.swing.JTable" name="tabelaProjetosAdmin">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
+                      <Table columnCount="5" rowCount="0">
                         <Column editable="false" title="Id" type="java.lang.Integer"/>
                         <Column editable="false" title="T&#xed;tulo" type="java.lang.String"/>
                         <Column editable="false" title="L&#xed;der" type="java.lang.String"/>
@@ -149,7 +149,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Lista de Projetos"/>
+                <Property name="text" type="java.lang.String" value="Lista de Projetos Em avalia&#xe7;&#xe3;o"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -191,11 +191,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bttnAttrAvaliadores" min="-2" pref="163" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="bttnFinalProjeto" min="-2" pref="153" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="bttnAcompProjeto" min="-2" pref="137" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
                   <Component id="bttnVoltarProjetosAdmin" min="-2" pref="103" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -207,8 +203,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="bttnAttrAvaliadores" alignment="0" pref="51" max="32767" attributes="0"/>
-                      <Component id="bttnFinalProjeto" alignment="0" max="32767" attributes="0"/>
-                      <Component id="bttnAcompProjeto" alignment="0" max="32767" attributes="0"/>
                       <Component id="bttnVoltarProjetosAdmin" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -223,22 +217,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnAttrAvaliadoresActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="bttnFinalProjeto">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Finalizar Projeto"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnFinalProjetoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="bttnAcompProjeto">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Acompanhar Projeto"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnAcompProjetoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bttnVoltarProjetosAdmin">

@@ -15,7 +15,8 @@ public class ProfProjetosView extends javax.swing.JFrame {
     public ProfProjetosView() {
         initComponents();
         projControler = new ProjetoController();
-        tabelaProjetosProf = projControler.updateTable(tabelaProjetosProf);
+        // AQUI EH DIFERENTE, PEGAR APENAS OS PROJETOS QUE O PROFESSOR EH LIDER
+        //tabelaProjetosProf = projControler.updateTable(tabelaProjetosProf);
         
         // Esconde a coluna com os IDs.
         tabelaProjetosProf.removeColumn(tabelaProjetosProf.getColumnModel().getColumn(0));

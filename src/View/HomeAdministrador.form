@@ -72,18 +72,22 @@
                   <EmptySpace pref="71" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="bttnMantAva" linkSize="1" pref="210" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="bttnMantProf" linkSize="1" alignment="0" pref="216" max="32767" attributes="0"/>
-                          <Component id="bttnMantAdm" linkSize="1" alignment="0" pref="216" max="32767" attributes="0"/>
-                          <Component id="bttnProjetos" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="bttnMantProf" linkSize="1" alignment="0" pref="216" max="32767" attributes="0"/>
+                      <Component id="bttnMantAdm" linkSize="1" alignment="0" pref="216" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="91" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="bttnAttAvaliador" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="bttnAcompanharProjetos" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -97,7 +101,10 @@
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="bttnMantAva" linkSize="2" min="-2" pref="54" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="bttnProjetos" min="-2" pref="54" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="bttnAttAvaliador" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="bttnAcompanharProjetos" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
@@ -137,12 +144,20 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bttnProjetos">
+        <Component class="javax.swing.JButton" name="bttnAttAvaliador">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Projetos"/>
+            <Property name="text" type="java.lang.String" value="Atribuir Avaliadores"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnProjetosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnAttAvaliadorActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bttnAcompanharProjetos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Acompanhar Projetos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnAcompanharProjetosActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

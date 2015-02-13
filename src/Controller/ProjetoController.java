@@ -18,8 +18,34 @@ import javax.swing.table.DefaultTableModel;
 public class ProjetoController {
     
     ProjetoDAO daoProj;
+    Projeto proj;
     
-    public JTable updateTable(JTable tabelaProjetos) {
+    public String alterarStatusProjeto(String emailLider, String novoStatus) {
+        daoProj = new ProjetoDAO();
+        
+        String message = "";
+        boolean check;
+        
+        check = daoProj.alteraStatusProjetoAprovado(emailLider, novoStatus);
+        
+        if (check) {
+            message += "Status do projeto alterado com sucesso!";
+        } else {
+            message += "Houve um erro na alteração do Status do Projeto.";
+        }
+        
+        return message;
+    }
+    
+    public Projeto getProjetoPorId(int idProjeto) {
+
+        daoProj = new ProjetoDAO();
+        proj = daoProj.getProjetoPorID(idProjeto);
+
+        return proj;
+    }
+
+    public JTable updateTable(JTable tabelaProjetos, String flagStatusProjeto) {
         
         daoProj = new ProjetoDAO();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
@@ -36,13 +62,17 @@ public class ProjetoController {
         projetos = daoProj.getProjetos();
 
         // adicionando a tabela
+        int indexTab = 0;
         for (int i = 0; i < projetos.size(); i++) {
-            tableModel.addRow(new Object[]{null, null, null, null, null});
-            tabelaProjetos.setValueAt(projetos.get(i).getId(), i, 0);
-            tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), i, 1);
-            tabelaProjetos.setValueAt(projetos.get(i).getLider(), i, 2);
-            tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), i, 3);
-            tabelaProjetos.setValueAt(projetos.get(i).getStatus(), i, 4);
+            if (projetos.get(i).getStatus().equals(flagStatusProjeto)) {
+                tableModel.addRow(new Object[]{null, null, null, null, null});
+                tabelaProjetos.setValueAt(projetos.get(i).getId(), indexTab, 0);
+                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), indexTab, 1);
+                tabelaProjetos.setValueAt(projetos.get(i).getLider(), indexTab, 2);
+                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), indexTab, 3);
+                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), indexTab, 4);
+                indexTab++;
+            }
         }
         
         return tabelaProjetos;

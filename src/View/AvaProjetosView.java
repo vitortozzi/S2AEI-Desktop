@@ -15,7 +15,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
     public AvaProjetosView() {
         initComponents();
         projControler = new ProjetoController();
-        tabelaProjetosAvaliador = projControler.updateTable(tabelaProjetosAvaliador);
+        tabelaProjetosAvaliador = projControler.updateTable(tabelaProjetosAvaliador, "Em avaliação");
         
         // Esconde a coluna com os IDs.
         tabelaProjetosAvaliador.removeColumn(tabelaProjetosAvaliador.getColumnModel().getColumn(0));

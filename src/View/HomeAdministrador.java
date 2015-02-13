@@ -33,7 +33,8 @@ public class HomeAdministrador extends javax.swing.JFrame {
         bttnMantProf = new javax.swing.JButton();
         bttnMantAva = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        bttnProjetos = new javax.swing.JButton();
+        bttnAttAvaliador = new javax.swing.JButton();
+        bttnAcompanharProjetos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,10 +71,17 @@ public class HomeAdministrador extends javax.swing.JFrame {
             }
         });
 
-        bttnProjetos.setText("Projetos");
-        bttnProjetos.addActionListener(new java.awt.event.ActionListener() {
+        bttnAttAvaliador.setText("Atribuir Avaliadores");
+        bttnAttAvaliador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnProjetosActionPerformed(evt);
+                bttnAttAvaliadorActionPerformed(evt);
+            }
+        });
+
+        bttnAcompanharProjetos.setText("Acompanhar Projetos");
+        bttnAcompanharProjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnAcompanharProjetosActionPerformed(evt);
             }
         });
 
@@ -85,15 +93,19 @@ public class HomeAdministrador extends javax.swing.JFrame {
                 .addContainerGap(71, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bttnMantAva, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(bttnMantProf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                        .addComponent(bttnMantAdm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                        .addComponent(bttnProjetos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(bttnMantProf, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                    .addComponent(bttnMantAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                 .addGap(65, 65, 65))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(bttnAttAvaliador)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bttnAcompanharProjetos)
+                .addGap(33, 33, 33))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bttnMantAdm, bttnMantAva, bttnMantProf});
@@ -108,7 +120,9 @@ public class HomeAdministrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bttnMantAva, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bttnProjetos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bttnAttAvaliador, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttnAcompanharProjetos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -159,10 +173,15 @@ public class HomeAdministrador extends javax.swing.JFrame {
         new Login().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void bttnProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnProjetosActionPerformed
+    private void bttnAttAvaliadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAttAvaliadorActionPerformed
         dispose();
-        new AdmProjetosView().setVisible(true);      
-    }//GEN-LAST:event_bttnProjetosActionPerformed
+        new AdmAtribuirAvaliadores().setVisible(true);      
+    }//GEN-LAST:event_bttnAttAvaliadorActionPerformed
+
+    private void bttnAcompanharProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAcompanharProjetosActionPerformed
+        dispose();
+        new AdmAcompanharProjetos().setVisible(true);
+    }//GEN-LAST:event_bttnAcompanharProjetosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,10 +220,11 @@ public class HomeAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bttnAcompanharProjetos;
+    private javax.swing.JButton bttnAttAvaliador;
     private javax.swing.JButton bttnMantAdm;
     private javax.swing.JButton bttnMantAva;
     private javax.swing.JButton bttnMantProf;
-    private javax.swing.JButton bttnProjetos;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

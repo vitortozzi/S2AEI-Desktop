@@ -1,29 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package View;
 
 import Controller.ProjetoController;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Vítor
- */
-public class AdmProjetosView extends javax.swing.JFrame {
+public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
 
     ProjetoController projControler;
     
     /**
      * Creates new form ProjetosAdministrador
      */
-    public AdmProjetosView() {
+    public AdmAtribuirAvaliadores() {
         initComponents();
         projControler = new ProjetoController();
-        tabelaProjetosAdmin = projControler.updateTable(tabelaProjetosAdmin);
+        tabelaProjetosAdmin = projControler.updateTable(tabelaProjetosAdmin, "Em avaliação");
         
         // Esconde a coluna com os IDs.
         tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
@@ -49,8 +41,6 @@ public class AdmProjetosView extends javax.swing.JFrame {
         attrAvaliadores = new javax.swing.JPanel();
         projetosAdminMenuPanel = new javax.swing.JPanel();
         bttnAttrAvaliadores = new javax.swing.JButton();
-        bttnFinalProjeto = new javax.swing.JButton();
-        bttnAcompProjeto = new javax.swing.JButton();
         bttnVoltarProjetosAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,10 +50,7 @@ public class AdmProjetosView extends javax.swing.JFrame {
 
         tabelaProjetosAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Título", "Líder", "Orientador", "Status"
@@ -94,7 +81,7 @@ public class AdmProjetosView extends javax.swing.JFrame {
         }
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        jLabel1.setText("Lista de Projetos");
+        jLabel1.setText("Lista de Projetos Em avaliação");
 
         javax.swing.GroupLayout projetosAdminIndexLayout = new javax.swing.GroupLayout(projetosAdminIndex);
         projetosAdminIndex.setLayout(projetosAdminIndexLayout);
@@ -104,10 +91,10 @@ public class AdmProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projetosAdminIndexLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(projetosAdminIndexLayout.createSequentialGroup()
+                .addGap(167, 167, 167)
                 .addComponent(jLabel1)
-                .addGap(238, 238, 238))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         projetosAdminIndexLayout.setVerticalGroup(
             projetosAdminIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,20 +130,6 @@ public class AdmProjetosView extends javax.swing.JFrame {
             }
         });
 
-        bttnFinalProjeto.setText("Finalizar Projeto");
-        bttnFinalProjeto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnFinalProjetoActionPerformed(evt);
-            }
-        });
-
-        bttnAcompProjeto.setText("Acompanhar Projeto");
-        bttnAcompProjeto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnAcompProjetoActionPerformed(evt);
-            }
-        });
-
         bttnVoltarProjetosAdmin.setText("Voltar");
         bttnVoltarProjetosAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,11 +144,7 @@ public class AdmProjetosView extends javax.swing.JFrame {
             .addGroup(projetosAdminMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bttnAttrAvaliadores, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bttnFinalProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bttnAcompProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(370, 370, 370)
                 .addComponent(bttnVoltarProjetosAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -185,8 +154,6 @@ public class AdmProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(projetosAdminMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(bttnAttrAvaliadores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(bttnFinalProjeto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bttnAcompProjeto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bttnVoltarProjetosAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -219,71 +186,6 @@ public class AdmProjetosView extends javax.swing.JFrame {
 //        content.show(projetosAdminContentPanel, "professorAdd");
     }//GEN-LAST:event_bttnAttrAvaliadoresActionPerformed
 
-    private void bttnFinalProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFinalProjetoActionPerformed
-
-//        int rowIndex = tabelaProjetosAdmin.getSelectedRow();
-//
-//        if (rowIndex == -1) {
-//            JOptionPane.showMessageDialog(null,"Escolha um Professor da tabela para editar.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//
-//            CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
-//            content.show(projetosAdminContentPanel, "professorEdit");
-//
-//            String emailProfSelecionado = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 1);
-//            Professor p;
-//            profController = new ProfessorController();
-//
-//            p = profController.getProfessorByEmail(emailProfSelecionado);
-//
-//            profNomeEdit.setText(p.getNome());
-//            profEmailEdit.setText(p.getEmail());
-//            profSenhaEdit.setText(p.getSenha());
-//            profStatusEdit.setSelectedItem(p.getStatus());
-//            profDepartEdit.setText(p.getDepartamento());
-//            profDiscEdit.setText(p.getDisciplinaPrincipal());
-        //}
-    }//GEN-LAST:event_bttnFinalProjetoActionPerformed
-
-    private void bttnAcompProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAcompProjetoActionPerformed
-//        CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
-//        content.show(projetosAdminContentPanel, "professorDelete");
-//
-//        int rowIndex = tabelaProjetosAdmin.getSelectedRow();
-//
-//        if (rowIndex == -1) {
-//            JOptionPane.showMessageDialog(null,"Escolha um Professor da tabela para excluir.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//
-//            String message = "";
-//            String emailProfSelec = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 1);
-//            String nomeProfSelec = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 0);
-//            String departamentoProfSelec = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 3);
-//            String discPrincipalProfSelec = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 4);
-//
-//            String temp = "Deseja excluir o seguinte Professor:\n";
-//            temp += "\n\t\tNome: " + nomeProfSelec;
-//            temp += "\n\t\tEmail: " + emailProfSelec;
-//            temp += "\n\t\tDepartamento: " + departamentoProfSelec;
-//            temp += "\n\t\tDisciplina principal: " + discPrincipalProfSelec;
-//            temp += "\n\nA exclusão do Professor o tornará 'Inativo', incapacitando-o de orientar de projetos";
-//
-//            int escolha = JOptionPane.showConfirmDialog(null, temp, "Confirmar exclusão?", JOptionPane.OK_CANCEL_OPTION, 0, null);
-
-//            if (escolha == JOptionPane.OK_OPTION) {
-//
-//                profController = new ProfessorController();
-//                message = profController.delProfessor(emailProfSelec);
-//
-//                JOptionPane.showMessageDialog(null, message);
-//
-//                // atualizar tabela
-//                profController = new ProfessorController();
-//                tabelaProjetosAdmin = profController.updateTable(tabelaProjetosAdmin);
-//            }
-       // }
-    }//GEN-LAST:event_bttnAcompProjetoActionPerformed
-
     private void bttnVoltarProjetosAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarProjetosAdminActionPerformed
         dispose();
         new HomeAdministrador().setVisible(true);
@@ -306,30 +208,30 @@ public class AdmProjetosView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmAtribuirAvaliadores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmAtribuirAvaliadores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmAtribuirAvaliadores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmAtribuirAvaliadores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdmProjetosView().setVisible(true);
+                new AdmAtribuirAvaliadores().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel attrAvaliadores;
-    private javax.swing.JButton bttnAcompProjeto;
     private javax.swing.JButton bttnAttrAvaliadores;
-    private javax.swing.JButton bttnFinalProjeto;
     private javax.swing.JButton bttnVoltarProjetosAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
