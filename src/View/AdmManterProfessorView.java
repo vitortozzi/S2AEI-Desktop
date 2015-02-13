@@ -18,14 +18,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 17409
  */
-public class ProfessorView extends javax.swing.JFrame {
+public class AdmManterProfessorView extends javax.swing.JFrame {
     
     ProfessorController profController;
 
     /**
      * Creates new form AlunoView
      */
-    public ProfessorView() {
+    public AdmManterProfessorView() {
         initComponents();
 
         // ligacao com o Controller
@@ -605,20 +605,23 @@ public class ProfessorView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterProfessorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProfessorView().setVisible(true);
+                new AdmManterProfessorView().setVisible(true);
             }
         });
     }

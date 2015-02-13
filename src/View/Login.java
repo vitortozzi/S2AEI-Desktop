@@ -172,16 +172,26 @@ public class Login extends javax.swing.JFrame {
         int temp = loginController.checkUser(userEmail, userPass);
         switch(temp) {
             case 0:
-                dispose();
-                new HomeAdministrador().setVisible(true);
-            break;
-            
-            case 1:
                 JOptionPane.showMessageDialog(null, "Preencha os campos de Email e Senha para efetuar o login no sistema.");
             break;
             
-            case 2:
+            case 1:
                 JOptionPane.showMessageDialog(null, "Usuário não encontrado, tente novamente!");
+            break;
+            
+            case 2:
+                dispose();
+                new HomeAdministrador().setVisible(true);
+            break;
+                
+            case 3:
+                dispose();
+                new HomeAvaliador().setVisible(true);
+            break;
+                
+            case 4:
+                dispose();
+                new HomeProfessor().setVisible(true);
             break;
         }
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
  *
  * @author israellaurensi
  */
-public class AvaliadorView extends javax.swing.JFrame {
+public class AdmManterAvaliadorView extends javax.swing.JFrame {
 
     AvaliadorController avaController;
     
-    public AvaliadorView() {
+    public AdmManterAvaliadorView() {
         initComponents();
         
         avaController = new AvaliadorController();
@@ -592,20 +592,23 @@ public class AvaliadorView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterAvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterAvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterAvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmManterAvaliadorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AvaliadorView().setVisible(true);
+                new AdmManterAvaliadorView().setVisible(true);
             }
         });
     }

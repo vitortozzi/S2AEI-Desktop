@@ -13,14 +13,14 @@ import javax.swing.JOptionPane;
  *
  * @author Vítor
  */
-public class ProjetosAdministrador extends javax.swing.JFrame {
+public class AdmProjetosView extends javax.swing.JFrame {
 
     ProjetoController projControler;
     
     /**
      * Creates new form ProjetosAdministrador
      */
-    public ProjetosAdministrador() {
+    public AdmProjetosView() {
         initComponents();
         projControler = new ProjetoController();
         tabelaProjetosAdmin = projControler.updateTable(tabelaProjetosAdmin);
@@ -54,7 +54,6 @@ public class ProjetosAdministrador extends javax.swing.JFrame {
         bttnVoltarProjetosAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(693, 440));
 
         projetosAdminContentPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         projetosAdminContentPanel.setLayout(new java.awt.CardLayout());
@@ -199,7 +198,7 @@ public class ProjetosAdministrador extends javax.swing.JFrame {
             .addComponent(projetosAdminMenuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(projetosAdminContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+                .addComponent(projetosAdminContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -307,20 +306,21 @@ public class ProjetosAdministrador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProjetosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProjetosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProjetosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProjetosAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmProjetosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProjetosAdministrador().setVisible(true);
+                new AdmProjetosView().setVisible(true);
             }
         });
     }

@@ -141,17 +141,17 @@ public class HomeAdministrador extends javax.swing.JFrame {
 
     private void bttnMantAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnMantAdmActionPerformed
         dispose();
-        new AdmnistradorView().setVisible(true);
+        new AdmManterAdmnistradorView().setVisible(true);
     }//GEN-LAST:event_bttnMantAdmActionPerformed
 
     private void bttnMantProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnMantProfActionPerformed
         dispose();
-        new ProfessorView().setVisible(true);
+        new AdmManterProfessorView().setVisible(true);
     }//GEN-LAST:event_bttnMantProfActionPerformed
 
     private void bttnMantAvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnMantAvaActionPerformed
         dispose();
-        new AvaliadorView().setVisible(true);
+        new AdmManterAvaliadorView().setVisible(true);
     }//GEN-LAST:event_bttnMantAvaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -161,7 +161,7 @@ public class HomeAdministrador extends javax.swing.JFrame {
 
     private void bttnProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnProjetosActionPerformed
         dispose();
-        new ProjetosAdministrador().setVisible(true);      
+        new AdmProjetosView().setVisible(true);      
     }//GEN-LAST:event_bttnProjetosActionPerformed
 
     /**
