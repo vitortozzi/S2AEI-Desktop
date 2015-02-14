@@ -122,4 +122,19 @@ public class AvaliadorController {
         return tabelaAvaliadores;
     }
     
+    public ArrayList<Avaliador> getAvaliadoresAtivos(){
+        avd = new AvaliadorDAO();
+        return avd.getAvaliadoresAtivos();
+    }
+    
+    public JTable updateTabelaAvaliadoresProjetos(JTable tabela, String avaliador, String nomeProjeto){
+        
+        DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
+        
+        
+        return tabela;
+        
+        
+    }
+    
 }

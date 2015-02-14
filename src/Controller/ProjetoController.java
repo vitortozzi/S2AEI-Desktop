@@ -78,4 +78,17 @@ public class ProjetoController {
         return tabelaProjetos;
     }
     
+    public boolean alreadyInTable(JTable tabela, String valor){
+        
+        //DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
+        
+        for(int i = 0; i < tabela.getRowCount(); i++){
+            if(tabela.getValueAt(i, 0).equals(valor)){
+                return true;
+            }
+        }   
+        return false;
+    }
+
+    
 }
