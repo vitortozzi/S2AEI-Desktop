@@ -3,11 +3,15 @@ package View;
 
 public class HomeProfessor extends javax.swing.JFrame {
 
+    private String userEmail;
+    
     /**
      * Creates new form HomeAvaliador
      */
-    public HomeProfessor() {
+    public HomeProfessor(String loggedUserEmail) {
         initComponents();
+        
+        userEmail = loggedUserEmail;
     }
 
     /**
@@ -96,7 +100,7 @@ public class HomeProfessor extends javax.swing.JFrame {
 
     private void bttnAddComentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAddComentsActionPerformed
         dispose();
-        new ProfProjetosView().setVisible(true);
+        new ProfProjetosView(userEmail).setVisible(true);
     }//GEN-LAST:event_bttnAddComentsActionPerformed
 
     private void bttnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnSairActionPerformed
@@ -135,7 +139,7 @@ public class HomeProfessor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeProfessor().setVisible(true);
+                //new HomeProfessor().setVisible(true);
             }
         });
     }

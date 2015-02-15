@@ -1,27 +1,44 @@
 
 package View;
 
+import Controller.ProfessorController;
 import Controller.ProjetoController;
+import Model.Tabelas.Professor;
+import Model.Tabelas.Projeto;
+import Utils.XMLParser;
 import java.awt.CardLayout;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.jdom2.JDOMException;
 
 public class ProfProjetosView extends javax.swing.JFrame {
 
-    ProjetoController projControler;
-    
+    private ProjetoController projController;
+    private ProfessorController profController;
+    private String userEmail;
+    private XMLParser xmlParser;
+
     /**
      * Creates new form ProjetosAdministrador
      */
-    public ProfProjetosView() {
+    public ProfProjetosView(String loggedUserEmail) {
         initComponents();
-        projControler = new ProjetoController();
-        // AQUI EH DIFERENTE, PEGAR APENAS OS PROJETOS QUE O PROFESSOR EH LIDER
-        //tabelaProjetosProf = projControler.updateTable(tabelaProjetosProf);
         
-        // Esconde a coluna com os IDs.
-        tabelaProjetosProf.removeColumn(tabelaProjetosProf.getColumnModel().getColumn(0));
+        userEmail = loggedUserEmail;
         
-        // Para utilização mais tarde
+        projController = new ProjetoController();
+        profController = new ProfessorController();
+
+        // precisou buscar o nome do professor
+        Professor prof;
+        prof = profController.getProfessorByEmail(userEmail);
+
+        // a busca dos projetos que um prof. orienta eh pelo nome, nao email
+        tabelaProjetosProf = projController.updateTableProjetosOrientador(tabelaProjetosProf, prof.getNome());
+        
         //System.out.println("Id: " + tabelaProjetosAdmin.getModel().getValueAt(0, 0));
     }
 
@@ -39,7 +56,17 @@ public class ProfProjetosView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProjetosProf = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        attrAvaliadores = new javax.swing.JPanel();
+        addComentProjeto = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        labelTituloProjeto = new javax.swing.JLabel();
+        tituloProjeto = new javax.swing.JLabel();
+        textoExplicativo = new javax.swing.JLabel();
+        questaoProjeto = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        quadroResposta = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        quadroComentarioProf = new javax.swing.JTextArea();
+        labelComentProf = new javax.swing.JLabel();
         projetosProfMenuPanel = new javax.swing.JPanel();
         bttnAddComentarios = new javax.swing.JButton();
         bttnVisualizarRespostas = new javax.swing.JButton();
@@ -94,7 +121,7 @@ public class ProfProjetosView extends javax.swing.JFrame {
             projetosProfIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projetosProfIndexLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projetosProfIndexLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -107,24 +134,92 @@ public class ProfProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         projetosProfContentPanel.add(projetosProfIndex, "professorIndex");
 
-        javax.swing.GroupLayout attrAvaliadoresLayout = new javax.swing.GroupLayout(attrAvaliadores);
-        attrAvaliadores.setLayout(attrAvaliadoresLayout);
-        attrAvaliadoresLayout.setHorizontalGroup(
-            attrAvaliadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        labelTituloProjeto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTituloProjeto.setText("Titulo do Projeto:");
+
+        tituloProjeto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tituloProjeto.setText("pegar depois");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTituloProjeto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tituloProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        attrAvaliadoresLayout.setVerticalGroup(
-            attrAvaliadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTituloProjeto)
+                    .addComponent(tituloProjeto))
+                .addContainerGap())
         );
 
-        projetosProfContentPanel.add(attrAvaliadores, "card3");
+        textoExplicativo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        textoExplicativo.setText("ushduasudiasd");
+
+        questaoProjeto.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        questaoProjeto.setText("asduiahsuidh uiashudi??");
+
+        quadroResposta.setColumns(20);
+        quadroResposta.setRows(5);
+        jScrollPane2.setViewportView(quadroResposta);
+
+        quadroComentarioProf.setColumns(20);
+        quadroComentarioProf.setRows(5);
+        jScrollPane3.setViewportView(quadroComentarioProf);
+
+        labelComentProf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelComentProf.setText("Comentário do Professor Orientador");
+
+        javax.swing.GroupLayout addComentProjetoLayout = new javax.swing.GroupLayout(addComentProjeto);
+        addComentProjeto.setLayout(addComentProjetoLayout);
+        addComentProjetoLayout.setHorizontalGroup(
+            addComentProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addComentProjetoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addComentProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3)
+                    .addComponent(labelComentProf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        addComentProjetoLayout.setVerticalGroup(
+            addComentProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addComentProjetoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textoExplicativo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(questaoProjeto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelComentProf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        projetosProfContentPanel.add(addComentProjeto, "addComentProjeto");
 
         projetosProfMenuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -158,20 +253,26 @@ public class ProfProjetosView extends javax.swing.JFrame {
                 .addComponent(bttnAddComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173)
-                .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        projetosProfMenuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas});
+
         projetosProfMenuPanelLayout.setVerticalGroup(
             projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projetosProfMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(bttnAddComentarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bttnVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bttnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        projetosProfMenuPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas, bttnVoltar});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,8 +298,45 @@ public class ProfProjetosView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnAddComentariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAddComentariosActionPerformed
-//        CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
-//        content.show(projetosAdminContentPanel, "professorAdd");
+        
+        int rowIndex = tabelaProjetosProf.getSelectedRow();
+
+        if (rowIndex == -1) {
+            JOptionPane.showMessageDialog(null,"Escolha um Projeto da tabela para adicionar comentários.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            CardLayout content = (CardLayout) (projetosProfContentPanel.getLayout());
+            content.show(projetosProfContentPanel, "addComentProjeto");
+
+            xmlParser = new XMLParser();
+            ArrayList<String> titulos = new ArrayList<>();
+            ArrayList<String> questoes = new ArrayList<>();
+
+            int idProjeto = (int) tabelaProjetosProf.getModel().getValueAt(rowIndex, 0);
+        
+            Projeto proj;
+            projController = new ProjetoController();
+            proj = projController.getProjetoPorId(idProjeto);
+
+            // PASSAR ISSO PRO CONTROLLER
+            
+            // ta certo isso aqui???
+            try {
+                try {
+                    titulos = xmlParser.getTitulos();
+                    questoes = xmlParser.getQuestoes();
+                } catch (IOException ex) {
+                    Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (JDOMException ex) {
+                Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            textoExplicativo.setText("Quadro 1 - " + titulos.get(0));
+            questaoProjeto.setText(questoes.get(0));
+            quadroResposta.setText(proj.getRespostas().get(0));
+        }
+
     }//GEN-LAST:event_bttnAddComentariosActionPerformed
 
     private void bttnVisualizarRespostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVisualizarRespostasActionPerformed
@@ -229,7 +367,7 @@ public class ProfProjetosView extends javax.swing.JFrame {
 
     private void bttnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarActionPerformed
         dispose();
-        new HomeProfessor().setVisible(true);
+        new HomeProfessor(userEmail).setVisible(true);
     }//GEN-LAST:event_bttnVoltarActionPerformed
 
     /**
@@ -265,21 +403,31 @@ public class ProfProjetosView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProfProjetosView().setVisible(true);
+                //new ProfProjetosView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel attrAvaliadores;
+    private javax.swing.JPanel addComentProjeto;
     private javax.swing.JButton bttnAddComentarios;
     private javax.swing.JButton bttnVisualizarRespostas;
     private javax.swing.JButton bttnVoltar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labelComentProf;
+    private javax.swing.JLabel labelTituloProjeto;
     private javax.swing.JPanel projetosProfContentPanel;
     private javax.swing.JPanel projetosProfIndex;
     private javax.swing.JPanel projetosProfMenuPanel;
+    private javax.swing.JTextArea quadroComentarioProf;
+    private javax.swing.JTextArea quadroResposta;
+    private javax.swing.JLabel questaoProjeto;
     private javax.swing.JTable tabelaProjetosProf;
+    private javax.swing.JLabel textoExplicativo;
+    private javax.swing.JLabel tituloProjeto;
     // End of variables declaration//GEN-END:variables
 }

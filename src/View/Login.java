@@ -191,7 +191,7 @@ public class Login extends javax.swing.JFrame {
                 
             case 4:
                 dispose();
-                new HomeProfessor().setVisible(true);
+                new HomeProfessor(userEmail).setVisible(true);
             break;
         }
     }//GEN-LAST:event_jButton2ActionPerformed
