@@ -1,9 +1,9 @@
-
 package View;
 
 import Controller.AvaliadorController;
 import Controller.ProjetoController;
 import Model.Tabelas.Avaliador;
+import Model.Tabelas.Projeto;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -13,7 +13,8 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
 
     ProjetoController projControler;
     AvaliadorController avaliadorController;
-    
+    Projeto p;
+
     /**
      * Creates new form ProjetosAdministrador
      */
@@ -21,14 +22,12 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
         initComponents();
         projControler = new ProjetoController();
         avaliadorController = new AvaliadorController();
-        
-        
-        
+
         tabelaProjetosAdmin = projControler.updateTable(tabelaProjetosAdmin, "Em avaliação");
-        
+
         // Esconde a coluna com os IDs.
         tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
-        
+
         // Para utilização mais tarde
         //System.out.println("Id: " + tabelaProjetosAdmin.getModel().getValueAt(0, 0));
     }
@@ -91,13 +90,9 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaProjetosAdmin);
         if (tabelaProjetosAdmin.getColumnModel().getColumnCount() > 0) {
             tabelaProjetosAdmin.getColumnModel().getColumn(1).setResizable(false);
-            tabelaProjetosAdmin.getColumnModel().getColumn(1).setHeaderValue("Título");
             tabelaProjetosAdmin.getColumnModel().getColumn(2).setResizable(false);
-            tabelaProjetosAdmin.getColumnModel().getColumn(2).setHeaderValue("Líder");
             tabelaProjetosAdmin.getColumnModel().getColumn(3).setResizable(false);
-            tabelaProjetosAdmin.getColumnModel().getColumn(3).setHeaderValue("Orientador");
             tabelaProjetosAdmin.getColumnModel().getColumn(4).setResizable(false);
-            tabelaProjetosAdmin.getColumnModel().getColumn(4).setHeaderValue("Status");
         }
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
@@ -297,19 +292,26 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnAttrAvaliadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAttrAvaliadoresActionPerformed
-        ArrayList<Avaliador> avaliadores = new ArrayList<>();
-        avaliadores = avaliadorController.getAvaliadoresAtivos();
-        Avaliador a;
-        
-        for(int i = 0; i<avaliadores.size(); i++){
-            comboAvaliadores.addItem(avaliadores.get(i).getNome());
+
+        int rowIndex = tabelaProjetosAdmin.getSelectedRow();
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(rootPane, "Você deve selecionar um projeto.");
+        } else {
+            ArrayList<Avaliador> avaliadores = new ArrayList<>();
+            avaliadores = avaliadorController.getAvaliadoresAtivos();
+            Avaliador a;
+            labelNomeProjeto.setText(tabelaProjetosAdmin.getValueAt(tabelaProjetosAdmin.getSelectedRow(), 0).toString());
+            comboAvaliadores.removeAllItems();
+            for (Avaliador ava : avaliadores) {
+                comboAvaliadores.addItem(ava.getNome());
+            }
+            tabelaAvaliadoresProjeto = new AvaliadorController().updateTabelaAvaliadoresProjetos(tabelaAvaliadoresProjeto, labelNomeProjeto.getText());
+            p = new Projeto();
+            p.setId(Integer.parseInt(tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 0).toString()));
+            p.setTitulo(labelNomeProjeto.getText());
+            CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
+            content.show(projetosAdminContentPanel, "avaliadoresProjeto");
         }
-        
-        labelNomeProjeto.setText(tabelaProjetosAdmin.getValueAt(tabelaProjetosAdmin.getSelectedRow(),0).toString());
-//        labelNomeProjeto.setText("Olá");
-        
-        CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
-        content.show(projetosAdminContentPanel, "avaliadoresProjeto");
     }//GEN-LAST:event_bttnAttrAvaliadoresActionPerformed
 
     private void bttnVoltarProjetosAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarProjetosAdminActionPerformed
@@ -320,18 +322,27 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
     private void btnAddAvaliadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAvaliadorActionPerformed
         String nomeAvaliador = comboAvaliadores.getSelectedItem().toString();
         DefaultTableModel model = (DefaultTableModel) tabelaAvaliadoresProjeto.getModel();
-        if(!projControler.alreadyInTable(tabelaAvaliadoresProjeto, nomeAvaliador)){
-        model.addRow(new Object[]{nomeAvaliador});
-        }
-        else{
+        if (!projControler.alreadyInTable(tabelaAvaliadoresProjeto, nomeAvaliador)) {            
+            if (avaliadorController.setAvaliadorProjeto(p, nomeAvaliador)) {
+                tabelaAvaliadoresProjeto = new AvaliadorController().
+                        updateTabelaAvaliadoresProjetos(tabelaAvaliadoresProjeto, labelNomeProjeto.getText());
+                JOptionPane.showMessageDialog(rootPane, "Avaliador atribuido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Houve um erro ao atribuir o avaliador.\nEntre "
+                        + "em contato com o administrador");
+            }
+        } else {
             JOptionPane.showMessageDialog(rootPane, "O avaliador que você está tentando inserir já está na lista.");
         }
         //tabelaAvaliadoresProjeto.setValueAt("Olá", model.getRowCount()+1,1);
-        
+
+        tabelaAvaliadoresProjeto = new AvaliadorController().
+                updateTabelaAvaliadoresProjetos(tabelaAvaliadoresProjeto, labelNomeProjeto.getText());
+
     }//GEN-LAST:event_btnAddAvaliadorActionPerformed
 
     private void btnVoltarProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarProjetosActionPerformed
-        
+
         CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
         content.show(projetosAdminContentPanel, "projetosAdminIndex");
     }//GEN-LAST:event_btnVoltarProjetosActionPerformed
@@ -341,15 +352,25 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
     }//GEN-LAST:event_comboAvaliadoresActionPerformed
 
     private void btnRemoveAvaliadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAvaliadorActionPerformed
-       
-        if(tabelaAvaliadoresProjeto.getSelectedRow()>=0){    
-            DefaultTableModel model = (DefaultTableModel) tabelaAvaliadoresProjeto.getModel();
-            model.removeRow(tabelaAvaliadoresProjeto.getSelectedRow());
-        }
-        else{
+
+        int indexRow = tabelaAvaliadoresProjeto.getSelectedRow();
+        
+        if (indexRow >= 0) {
+//            DefaultTableModel model = (DefaultTableModel) tabelaAvaliadoresProjeto.getModel();
+//            model.removeRow(tabelaAvaliadoresProjeto.getSelectedRow());
+              
+            if(avaliadorController.removeAvaliadorProjeto(p, comboAvaliadores.getSelectedItem().toString())){
+                tabelaAvaliadoresProjeto = new AvaliadorController().
+                updateTabelaAvaliadoresProjetos(tabelaAvaliadoresProjeto, labelNomeProjeto.getText()); 
+                JOptionPane.showMessageDialog(rootPane, "Avaliador desvinculado do projeto com sucesso.");
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Houve um erro ao desvincular o avaliador do projeto.");
+            }
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Você precisa selecionar algum avaliador para remove-lo");
         }
-        
+
     }//GEN-LAST:event_btnRemoveAvaliadorActionPerformed
 
     /**
