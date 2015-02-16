@@ -56,21 +56,28 @@ public class ProfProjetosView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProjetosProf = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        addComentProjeto = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        addComentProjetoPanel = new javax.swing.JPanel();
+        questionTitlePanel = new javax.swing.JPanel();
         labelTituloProjeto = new javax.swing.JLabel();
         tituloProjeto = new javax.swing.JLabel();
-        textoExplicativo = new javax.swing.JLabel();
-        questaoProjeto = new javax.swing.JLabel();
+        questionContentPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         quadroResposta = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         quadroComentarioProf = new javax.swing.JTextArea();
         labelComentProf = new javax.swing.JLabel();
+        textoExplicativo = new javax.swing.JLabel();
+        questaoProjeto = new javax.swing.JLabel();
+        perguntasComboBox = new javax.swing.JComboBox();
+        labelPerguntaCombo = new javax.swing.JLabel();
         projetosProfMenuPanel = new javax.swing.JPanel();
+        indexMenu = new javax.swing.JPanel();
         bttnAddComentarios = new javax.swing.JButton();
         bttnVisualizarRespostas = new javax.swing.JButton();
         bttnVoltar = new javax.swing.JButton();
+        addComentMenu = new javax.swing.JPanel();
+        bttnConfirmarComentario = new javax.swing.JButton();
+        bttnVoltarIndex = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,12 +128,12 @@ public class ProfProjetosView extends javax.swing.JFrame {
             projetosProfIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projetosProfIndexLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projetosProfIndexLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(238, 238, 238))
+                .addGap(275, 275, 275))
         );
         projetosProfIndexLayout.setVerticalGroup(
             projetosProfIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,49 +141,44 @@ public class ProfProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        projetosProfContentPanel.add(projetosProfIndex, "professorIndex");
+        projetosProfContentPanel.add(projetosProfIndex, "projetosProfIndex");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        questionTitlePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         labelTituloProjeto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         labelTituloProjeto.setText("Titulo do Projeto:");
 
         tituloProjeto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        tituloProjeto.setText("pegar depois");
+        tituloProjeto.setText(" ");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout questionTitlePanelLayout = new javax.swing.GroupLayout(questionTitlePanel);
+        questionTitlePanel.setLayout(questionTitlePanelLayout);
+        questionTitlePanelLayout.setHorizontalGroup(
+            questionTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(questionTitlePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelTituloProjeto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tituloProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+                .addComponent(tituloProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        questionTitlePanelLayout.setVerticalGroup(
+            questionTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionTitlePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(questionTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTituloProjeto)
                     .addComponent(tituloProjeto))
                 .addContainerGap())
         );
 
-        textoExplicativo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        textoExplicativo.setText("ushduasudiasd");
-
-        questaoProjeto.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        questaoProjeto.setText("asduiahsuidh uiashudi??");
-
         quadroResposta.setColumns(20);
         quadroResposta.setRows(5);
+        quadroResposta.setEnabled(false);
         jScrollPane2.setViewportView(quadroResposta);
 
         quadroComentarioProf.setColumns(20);
@@ -186,42 +188,87 @@ public class ProfProjetosView extends javax.swing.JFrame {
         labelComentProf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelComentProf.setText("Comentário do Professor Orientador");
 
-        javax.swing.GroupLayout addComentProjetoLayout = new javax.swing.GroupLayout(addComentProjeto);
-        addComentProjeto.setLayout(addComentProjetoLayout);
-        addComentProjetoLayout.setHorizontalGroup(
-            addComentProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addComentProjetoLayout.createSequentialGroup()
+        textoExplicativo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        textoExplicativo.setText("Quadro _ - ");
+
+        questaoProjeto.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        questaoProjeto.setText("Questão.");
+        questaoProjeto.setMaximumSize(new java.awt.Dimension(691, 20));
+
+        javax.swing.GroupLayout questionContentPanelLayout = new javax.swing.GroupLayout(questionContentPanel);
+        questionContentPanel.setLayout(questionContentPanelLayout);
+        questionContentPanelLayout.setHorizontalGroup(
+            questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3)
+            .addComponent(labelComentProf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(questionContentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addComentProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3)
-                    .addComponent(labelComentProf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(jScrollPane2)
         );
-        addComentProjetoLayout.setVerticalGroup(
-            addComentProjetoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addComentProjetoLayout.createSequentialGroup()
+        questionContentPanelLayout.setVerticalGroup(
+            questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(questionContentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textoExplicativo)
+                .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(questaoProjeto)
+                .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelComentProf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        perguntasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        perguntasComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perguntasComboBoxActionPerformed(evt);
+            }
+        });
+
+        labelPerguntaCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelPerguntaCombo.setText("Escolha a pergunta:");
+
+        javax.swing.GroupLayout addComentProjetoPanelLayout = new javax.swing.GroupLayout(addComentProjetoPanel);
+        addComentProjetoPanel.setLayout(addComentProjetoPanelLayout);
+        addComentProjetoPanelLayout.setHorizontalGroup(
+            addComentProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addComentProjetoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addComentProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(questionContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(addComentProjetoPanelLayout.createSequentialGroup()
+                        .addComponent(questionTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addComponent(labelPerguntaCombo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        addComentProjetoPanelLayout.setVerticalGroup(
+            addComentProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addComentProjetoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addComentProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(questionTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPerguntaCombo)
+                    .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(questionContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        projetosProfContentPanel.add(addComentProjeto, "addComentProjeto");
+        addComentProjetoPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelPerguntaCombo, perguntasComboBox});
+
+        projetosProfContentPanel.add(addComentProjetoPanel, "addComentProjetoPanel");
 
         projetosProfMenuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        projetosProfMenuPanel.setLayout(new java.awt.CardLayout());
 
         bttnAddComentarios.setText("Adicionar Comentários");
         bttnAddComentarios.addActionListener(new java.awt.event.ActionListener() {
@@ -244,41 +291,90 @@ public class ProfProjetosView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout projetosProfMenuPanelLayout = new javax.swing.GroupLayout(projetosProfMenuPanel);
-        projetosProfMenuPanel.setLayout(projetosProfMenuPanelLayout);
-        projetosProfMenuPanelLayout.setHorizontalGroup(
-            projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(projetosProfMenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bttnAddComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        javax.swing.GroupLayout indexMenuLayout = new javax.swing.GroupLayout(indexMenu);
+        indexMenu.setLayout(indexMenuLayout);
+        indexMenuLayout.setHorizontalGroup(
+            indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(indexMenuLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(bttnAddComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
-        projetosProfMenuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas});
+        indexMenuLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas});
 
-        projetosProfMenuPanelLayout.setVerticalGroup(
-            projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(projetosProfMenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(bttnAddComentarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, projetosProfMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bttnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+        indexMenuLayout.setVerticalGroup(
+            indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 73, Short.MAX_VALUE)
+            .addGroup(indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(indexMenuLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(bttnAddComentarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bttnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        projetosProfMenuPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas, bttnVoltar});
+        indexMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas, bttnVoltar});
+
+        projetosProfMenuPanel.add(indexMenu, "indexMenu");
+
+        bttnConfirmarComentario.setText("Confirmar Comentário");
+        bttnConfirmarComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnConfirmarComentarioActionPerformed(evt);
+            }
+        });
+
+        bttnVoltarIndex.setText("Voltar");
+        bttnVoltarIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnVoltarIndexActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addComentMenuLayout = new javax.swing.GroupLayout(addComentMenu);
+        addComentMenu.setLayout(addComentMenuLayout);
+        addComentMenuLayout.setHorizontalGroup(
+            addComentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 796, Short.MAX_VALUE)
+            .addGroup(addComentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addComentMenuLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(bttnConfirmarComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
+                    .addComponent(bttnVoltarIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+        addComentMenuLayout.setVerticalGroup(
+            addComentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 73, Short.MAX_VALUE)
+            .addGroup(addComentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addComentMenuLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(addComentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(bttnConfirmarComentario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addComponent(bttnVoltarIndex, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        addComentMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnConfirmarComentario, bttnVoltarIndex});
+
+        projetosProfMenuPanel.add(addComentMenu, "addComentMenu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(projetosProfMenuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(projetosProfMenuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(projetosProfContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -305,7 +401,10 @@ public class ProfProjetosView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Escolha um Projeto da tabela para adicionar comentários.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
             CardLayout content = (CardLayout) (projetosProfContentPanel.getLayout());
-            content.show(projetosProfContentPanel, "addComentProjeto");
+            content.show(projetosProfContentPanel, "addComentProjetoPanel");
+            
+            CardLayout menu = (CardLayout) (projetosProfMenuPanel.getLayout());
+            menu.show(projetosProfMenuPanel, "addComentMenu");
 
             xmlParser = new XMLParser();
             ArrayList<String> titulos = new ArrayList<>();
@@ -316,10 +415,9 @@ public class ProfProjetosView extends javax.swing.JFrame {
             Projeto proj;
             projController = new ProjetoController();
             proj = projController.getProjetoPorId(idProjeto);
-
-            // PASSAR ISSO PRO CONTROLLER
             
-            // ta certo isso aqui???
+            tituloProjeto.setText(proj.getTitulo());
+
             try {
                 try {
                     titulos = xmlParser.getTitulos();
@@ -330,45 +428,74 @@ public class ProfProjetosView extends javax.swing.JFrame {
             } catch (JDOMException ex) {
                 Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-
-            textoExplicativo.setText("Quadro 1 - " + titulos.get(0));
-            questaoProjeto.setText(questoes.get(0));
-            quadroResposta.setText(proj.getRespostas().get(0));
+            
+            for (int i = 1; i <= titulos.size(); i++) {
+                perguntasComboBox.addItem("Pergunta " + i);
+            }
+            
         }
 
     }//GEN-LAST:event_bttnAddComentariosActionPerformed
 
     private void bttnVisualizarRespostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVisualizarRespostasActionPerformed
-
-//        int rowIndex = tabelaProjetosAdmin.getSelectedRow();
-//
-//        if (rowIndex == -1) {
-//            JOptionPane.showMessageDialog(null,"Escolha um Professor da tabela para editar.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//
-//            CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
-//            content.show(projetosAdminContentPanel, "professorEdit");
-//
-//            String emailProfSelecionado = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 1);
-//            Professor p;
-//            profController = new ProfessorController();
-//
-//            p = profController.getProfessorByEmail(emailProfSelecionado);
-//
-//            profNomeEdit.setText(p.getNome());
-//            profEmailEdit.setText(p.getEmail());
-//            profSenhaEdit.setText(p.getSenha());
-//            profStatusEdit.setSelectedItem(p.getStatus());
-//            profDepartEdit.setText(p.getDepartamento());
-//            profDiscEdit.setText(p.getDisciplinaPrincipal());
-        //}
+        // to do
     }//GEN-LAST:event_bttnVisualizarRespostasActionPerformed
 
     private void bttnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarActionPerformed
         dispose();
         new HomeProfessor(userEmail).setVisible(true);
     }//GEN-LAST:event_bttnVoltarActionPerformed
+
+    private void perguntasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perguntasComboBoxActionPerformed
+
+        int rowIndex = tabelaProjetosProf.getSelectedRow();
+        int perguntaId = perguntasComboBox.getSelectedIndex();
+        perguntaId--;
+        
+        xmlParser = new XMLParser();
+        ArrayList<String> titulos = new ArrayList<>();
+        ArrayList<String> questoes = new ArrayList<>();
+        ArrayList<String> respostas = new ArrayList<>();
+
+        int idProjeto = (int) tabelaProjetosProf.getModel().getValueAt(rowIndex, 0);
+        
+        Projeto proj;
+        projController = new ProjetoController();
+        proj = projController.getProjetoPorId(idProjeto);
+        
+        try {
+            try {
+                titulos = xmlParser.getTitulos();
+                questoes = xmlParser.getQuestoes();
+            } catch (IOException ex) {
+                Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (JDOMException ex) {
+            Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        respostas = proj.getRespostas();
+        
+        int temp = perguntaId + 1;
+        textoExplicativo.setText("Quadro " + temp + " - " + titulos.get(perguntaId));
+        questaoProjeto.setText(questoes.get(perguntaId));
+        
+        if (respostas.size() > 0) {
+            quadroResposta.setText(proj.getRespostas().get(perguntaId));
+        }
+    }//GEN-LAST:event_perguntasComboBoxActionPerformed
+
+    private void bttnConfirmarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmarComentarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bttnConfirmarComentarioActionPerformed
+
+    private void bttnVoltarIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarIndexActionPerformed
+        CardLayout content = (CardLayout) (projetosProfContentPanel.getLayout());
+        content.show(projetosProfContentPanel, "projetosProfIndex");
+            
+        CardLayout menu = (CardLayout) (projetosProfMenuPanel.getLayout());
+        menu.show(projetosProfMenuPanel, "indexMenu");
+    }//GEN-LAST:event_bttnVoltarIndexActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,23 +536,30 @@ public class ProfProjetosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel addComentProjeto;
+    private javax.swing.JPanel addComentMenu;
+    private javax.swing.JPanel addComentProjetoPanel;
     private javax.swing.JButton bttnAddComentarios;
+    private javax.swing.JButton bttnConfirmarComentario;
     private javax.swing.JButton bttnVisualizarRespostas;
     private javax.swing.JButton bttnVoltar;
+    private javax.swing.JButton bttnVoltarIndex;
+    private javax.swing.JPanel indexMenu;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelComentProf;
+    private javax.swing.JLabel labelPerguntaCombo;
     private javax.swing.JLabel labelTituloProjeto;
+    private javax.swing.JComboBox perguntasComboBox;
     private javax.swing.JPanel projetosProfContentPanel;
     private javax.swing.JPanel projetosProfIndex;
     private javax.swing.JPanel projetosProfMenuPanel;
     private javax.swing.JTextArea quadroComentarioProf;
     private javax.swing.JTextArea quadroResposta;
     private javax.swing.JLabel questaoProjeto;
+    private javax.swing.JPanel questionContentPanel;
+    private javax.swing.JPanel questionTitlePanel;
     private javax.swing.JTable tabelaProjetosProf;
     private javax.swing.JLabel textoExplicativo;
     private javax.swing.JLabel tituloProjeto;
