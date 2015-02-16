@@ -16,10 +16,16 @@ import org.jdom2.JDOMException;
 
 public class ProfProjetosView extends javax.swing.JFrame {
 
+    private Projeto proj;
     private ProjetoController projController;
     private ProfessorController profController;
     private String userEmail;
     private XMLParser xmlParser;
+    
+    private ArrayList<String> titulos;
+    private ArrayList<String> questoes;
+    private ArrayList<String> respostas;
+    private ArrayList<String> comentarios;
 
     /**
      * Creates new form ProjetosAdministrador
@@ -72,8 +78,7 @@ public class ProfProjetosView extends javax.swing.JFrame {
         labelPerguntaCombo = new javax.swing.JLabel();
         projetosProfMenuPanel = new javax.swing.JPanel();
         indexMenu = new javax.swing.JPanel();
-        bttnAddComentarios = new javax.swing.JButton();
-        bttnVisualizarRespostas = new javax.swing.JButton();
+        bttnVisualizarProjeto = new javax.swing.JButton();
         bttnVoltar = new javax.swing.JButton();
         addComentMenu = new javax.swing.JPanel();
         bttnConfirmarComentario = new javax.swing.JButton();
@@ -270,17 +275,10 @@ public class ProfProjetosView extends javax.swing.JFrame {
         projetosProfMenuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         projetosProfMenuPanel.setLayout(new java.awt.CardLayout());
 
-        bttnAddComentarios.setText("Adicionar Comentários");
-        bttnAddComentarios.addActionListener(new java.awt.event.ActionListener() {
+        bttnVisualizarProjeto.setText("Visualizar Perguntas do Projeto");
+        bttnVisualizarProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnAddComentariosActionPerformed(evt);
-            }
-        });
-
-        bttnVisualizarRespostas.setText("Visualizar Respostas");
-        bttnVisualizarRespostas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttnVisualizarRespostasActionPerformed(evt);
+                bttnVisualizarProjetoActionPerformed(evt);
             }
         });
 
@@ -295,20 +293,15 @@ public class ProfProjetosView extends javax.swing.JFrame {
         indexMenu.setLayout(indexMenuLayout);
         indexMenuLayout.setHorizontalGroup(
             indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 796, Short.MAX_VALUE)
             .addGroup(indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(indexMenuLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(bttnAddComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bttnVisualizarProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE)
                     .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
-
-        indexMenuLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas});
-
         indexMenuLayout.setVerticalGroup(
             indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 73, Short.MAX_VALUE)
@@ -316,14 +309,12 @@ public class ProfProjetosView extends javax.swing.JFrame {
                 .addGroup(indexMenuLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(bttnAddComentarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, indexMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bttnVisualizarRespostas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bttnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(bttnVisualizarProjeto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addComponent(bttnVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        indexMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnAddComentarios, bttnVisualizarRespostas, bttnVoltar});
+        indexMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnVisualizarProjeto, bttnVoltar});
 
         projetosProfMenuPanel.add(indexMenu, "indexMenu");
 
@@ -393,8 +384,15 @@ public class ProfProjetosView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bttnAddComentariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAddComentariosActionPerformed
+    private void bttnVisualizarProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVisualizarProjetoActionPerformed
         
+        /* resetando campos da view */
+        textoExplicativo.setText("Quadro _ -");
+        questaoProjeto.setText("Questão");
+        quadroResposta.setText("");
+        quadroComentarioProf.setText("");
+        perguntasComboBox.setSelectedIndex(0);
+                
         int rowIndex = tabelaProjetosProf.getSelectedRow();
 
         if (rowIndex == -1) {
@@ -406,40 +404,25 @@ public class ProfProjetosView extends javax.swing.JFrame {
             CardLayout menu = (CardLayout) (projetosProfMenuPanel.getLayout());
             menu.show(projetosProfMenuPanel, "addComentMenu");
 
-            xmlParser = new XMLParser();
-            ArrayList<String> titulos = new ArrayList<>();
-            ArrayList<String> questoes = new ArrayList<>();
-
             int idProjeto = (int) tabelaProjetosProf.getModel().getValueAt(rowIndex, 0);
-        
-            Projeto proj;
+
             projController = new ProjetoController();
             proj = projController.getProjetoPorId(idProjeto);
             
-            tituloProjeto.setText(proj.getTitulo());
+            titulos = projController.getPerguntas(0);
+            questoes = projController.getPerguntas(1);
+            respostas = proj.getRespostas();
+            comentarios = projController.getComentarios(idProjeto);
 
-            try {
-                try {
-                    titulos = xmlParser.getTitulos();
-                    questoes = xmlParser.getQuestoes();
-                } catch (IOException ex) {
-                    Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+            tituloProjeto.setText(proj.getTitulo());
+            if (perguntasComboBox.getItemCount() <= 1) {
+                for (int i = 1; i <= titulos.size(); i++) {
+                    perguntasComboBox.addItem("Pergunta " + i);
                 }
-            } catch (JDOMException ex) {
-                Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            for (int i = 1; i <= titulos.size(); i++) {
-                perguntasComboBox.addItem("Pergunta " + i);
-            }
-            
         }
 
-    }//GEN-LAST:event_bttnAddComentariosActionPerformed
-
-    private void bttnVisualizarRespostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVisualizarRespostasActionPerformed
-        // to do
-    }//GEN-LAST:event_bttnVisualizarRespostasActionPerformed
+    }//GEN-LAST:event_bttnVisualizarProjetoActionPerformed
 
     private void bttnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarActionPerformed
         dispose();
@@ -448,45 +431,57 @@ public class ProfProjetosView extends javax.swing.JFrame {
 
     private void perguntasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perguntasComboBoxActionPerformed
 
-        int rowIndex = tabelaProjetosProf.getSelectedRow();
         int perguntaId = perguntasComboBox.getSelectedIndex();
         perguntaId--;
-        
-        xmlParser = new XMLParser();
-        ArrayList<String> titulos = new ArrayList<>();
-        ArrayList<String> questoes = new ArrayList<>();
-        ArrayList<String> respostas = new ArrayList<>();
 
-        int idProjeto = (int) tabelaProjetosProf.getModel().getValueAt(rowIndex, 0);
-        
-        Projeto proj;
-        projController = new ProjetoController();
-        proj = projController.getProjetoPorId(idProjeto);
-        
-        try {
-            try {
-                titulos = xmlParser.getTitulos();
-                questoes = xmlParser.getQuestoes();
-            } catch (IOException ex) {
-                Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+        if (perguntaId >= 0) {
+            int temp = perguntaId + 1;
+            textoExplicativo.setText("Quadro " + temp + " - " + titulos.get(perguntaId));
+            questaoProjeto.setText(questoes.get(perguntaId));
+
+            if (respostas.size() > 0 && respostas.get(perguntaId) != null) {
+                quadroResposta.setText(respostas.get(perguntaId));
+            } else {
+                quadroResposta.setText("");
             }
-        } catch (JDOMException ex) {
-            Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        respostas = proj.getRespostas();
-        
-        int temp = perguntaId + 1;
-        textoExplicativo.setText("Quadro " + temp + " - " + titulos.get(perguntaId));
-        questaoProjeto.setText(questoes.get(perguntaId));
-        
-        if (respostas.size() > 0) {
-            quadroResposta.setText(proj.getRespostas().get(perguntaId));
+            if (comentarios.size() > 0 && comentarios.get(perguntaId) != null) {
+                quadroComentarioProf.setText(comentarios.get(perguntaId));
+            } else {
+                quadroComentarioProf.setText("");
+            }
         }
     }//GEN-LAST:event_perguntasComboBoxActionPerformed
 
     private void bttnConfirmarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmarComentarioActionPerformed
-        // TODO add your handling code here:
+
+        int ret;
+        int idProjeto = proj.getId();
+        int idPergunta = perguntasComboBox.getSelectedIndex();
+        
+        String comentario = quadroComentarioProf.getText();
+        
+        ret = projController.addComentario(idProjeto, idPergunta, comentario);
+        
+        switch(ret) {
+            case 0:
+                JOptionPane.showMessageDialog(null, "Escolha uma pergunta para adicionar um comentário.");
+            break;
+              
+            case 1:
+                JOptionPane.showMessageDialog(null, "Quadro comentário em branco. Insira algum comentário para ser adicionado.");
+            break;
+                
+            case 2:
+                JOptionPane.showMessageDialog(null, "Falha ao adicionar o comentário, tente novamente.");
+            break;
+            
+            case 3:
+                JOptionPane.showMessageDialog(null, "Comentário adicionado com sucesso.");
+                comentarios = projController.getComentarios(proj.getId());
+            break;
+        }
+
     }//GEN-LAST:event_bttnConfirmarComentarioActionPerformed
 
     private void bttnVoltarIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarIndexActionPerformed
@@ -538,9 +533,8 @@ public class ProfProjetosView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addComentMenu;
     private javax.swing.JPanel addComentProjetoPanel;
-    private javax.swing.JButton bttnAddComentarios;
     private javax.swing.JButton bttnConfirmarComentario;
-    private javax.swing.JButton bttnVisualizarRespostas;
+    private javax.swing.JButton bttnVisualizarProjeto;
     private javax.swing.JButton bttnVoltar;
     private javax.swing.JButton bttnVoltarIndex;
     private javax.swing.JPanel indexMenu;

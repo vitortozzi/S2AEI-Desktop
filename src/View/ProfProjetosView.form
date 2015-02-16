@@ -391,14 +391,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="796" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="bttnAddComentarios" linkSize="1" min="-2" pref="163" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="bttnVisualizarRespostas" linkSize="1" min="-2" pref="153" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="bttnVisualizarProjeto" min="-2" pref="202" max="-2" attributes="0"/>
+                          <EmptySpace pref="472" max="32767" attributes="0"/>
                           <Component id="bttnVoltar" min="-2" pref="102" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -412,11 +410,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="bttnAddComentarios" linkSize="2" alignment="0" pref="51" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="bttnVisualizarRespostas" linkSize="2" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="bttnVoltar" linkSize="2" alignment="3" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="bttnVisualizarProjeto" linkSize="2" alignment="0" pref="51" max="32767" attributes="0"/>
+                              <Component id="bttnVoltar" linkSize="2" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -425,20 +420,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="bttnAddComentarios">
+            <Component class="javax.swing.JButton" name="bttnVisualizarProjeto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Adicionar Coment&#xe1;rios"/>
+                <Property name="text" type="java.lang.String" value="Visualizar Perguntas do Projeto"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnAddComentariosActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="bttnVisualizarRespostas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Visualizar Respostas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnVisualizarRespostasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttnVisualizarProjetoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bttnVoltar">

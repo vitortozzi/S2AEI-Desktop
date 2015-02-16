@@ -1,24 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import Model.Database.ProjetoDAO;
 import Model.Tabelas.Projeto;
+import Utils.XMLParser;
+import View.ProfProjetosView;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.jdom2.JDOMException;
 
-/**
- *
- * @author Vítor
- */
 public class ProjetoController {
     
     ProjetoDAO daoProj;
     Projeto proj;
+    XMLParser xmlParser;
     
     public String alterarStatusProjeto(String emailLider, String novoStatus) {
         daoProj = new ProjetoDAO();
@@ -36,12 +35,67 @@ public class ProjetoController {
         
         return message;
     }
+
+    /* flag: 0 => getTitulos | flag: 1 => getQuestoes */
+    public ArrayList<String> getPerguntas(int flag) {
+        
+        ArrayList<String> perguntas = new ArrayList<>();
+        xmlParser = new XMLParser();
+        
+        try {
+            try {
+                if (flag == 0) perguntas = xmlParser.getTitulos();
+                else perguntas = xmlParser.getQuestoes();
+            } catch (IOException ex) {
+                Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (JDOMException ex) {
+            Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return perguntas;
+    }
+
+    public ArrayList<String> getComentarios(int idProjeto) {
+        
+        ArrayList<String> comentarios;
+        
+        daoProj = new ProjetoDAO();
+        comentarios = daoProj.getComentarios(idProjeto);
+        
+        return comentarios;
+    }
+    
+    public int addComentario(int idProjeto, int idPergunta, String comentario) {
+        int ret = 0;
+        boolean check;
+
+        if (idPergunta <= 0) {
+            ret = 0;
+            return ret;
+        }
+
+        if (comentario.equals("")) {
+            ret = 1;
+            return ret;
+        }
+
+        daoProj = new ProjetoDAO();
+        check = daoProj.addComentario(idProjeto, idPergunta, comentario);
+        if (!check) ret = 2;
+        else ret = 3;
+        
+        return ret;
+    }
     
     public Projeto getProjetoPorId(int idProjeto) {
 
         daoProj = new ProjetoDAO();
         proj = daoProj.getProjetoPorID(idProjeto);
-        proj.setRespostas(daoProj.getRespostas(proj.getId()));
+        
+        ArrayList<String> respostas;
+        respostas = daoProj.getRespostas(idProjeto);
+        proj.setRespostas(respostas);
 
         return proj;
     }
@@ -134,5 +188,4 @@ public class ProjetoController {
         return false;
     }
 
-    
 }
