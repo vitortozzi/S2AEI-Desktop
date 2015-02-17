@@ -403,9 +403,9 @@ public class ProfProjetosView extends javax.swing.JFrame {
             
             CardLayout menu = (CardLayout) (projetosProfMenuPanel.getLayout());
             menu.show(projetosProfMenuPanel, "addComentMenu");
-
+        
             int idProjeto = (int) tabelaProjetosProf.getModel().getValueAt(rowIndex, 0);
-
+            
             projController = new ProjetoController();
             proj = projController.getProjetoPorId(idProjeto);
             
@@ -413,7 +413,7 @@ public class ProfProjetosView extends javax.swing.JFrame {
             questoes = projController.getPerguntas(1);
             respostas = proj.getRespostas();
             comentarios = projController.getComentarios(idProjeto);
-
+            
             tituloProjeto.setText(proj.getTitulo());
             if (perguntasComboBox.getItemCount() <= 1) {
                 for (int i = 1; i <= titulos.size(); i++) {

@@ -1,4 +1,3 @@
-
 package Controller;
 
 import Model.Database.ProjetoDAO;
@@ -14,38 +13,41 @@ import javax.swing.table.DefaultTableModel;
 import org.jdom2.JDOMException;
 
 public class ProjetoController {
-    
+
     ProjetoDAO daoProj;
     Projeto proj;
     XMLParser xmlParser;
-    
+
     public String alterarStatusProjeto(String emailLider, String novoStatus) {
         daoProj = new ProjetoDAO();
-        
+
         String message = "";
         boolean check;
-        
+
         check = daoProj.alteraStatusProjetoAprovado(emailLider, novoStatus);
-        
+
         if (check) {
             message += "Status do projeto alterado com sucesso!";
         } else {
             message += "Houve um erro na alteração do Status do Projeto.";
         }
-        
+
         return message;
     }
 
     /* flag: 0 => getTitulos | flag: 1 => getQuestoes */
     public ArrayList<String> getPerguntas(int flag) {
-        
+
         ArrayList<String> perguntas = new ArrayList<>();
         xmlParser = new XMLParser();
-        
+
         try {
             try {
-                if (flag == 0) perguntas = xmlParser.getTitulos();
-                else perguntas = xmlParser.getQuestoes();
+                if (flag == 0) {
+                    perguntas = xmlParser.getTitulos();
+                } else {
+                    perguntas = xmlParser.getQuestoes();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(ProfProjetosView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -57,15 +59,15 @@ public class ProjetoController {
     }
 
     public ArrayList<String> getComentarios(int idProjeto) {
-        
+
         ArrayList<String> comentarios;
-        
+
         daoProj = new ProjetoDAO();
         comentarios = daoProj.getComentarios(idProjeto);
-        
+
         return comentarios;
     }
-    
+
     public int addComentario(int idProjeto, int idPergunta, String comentario) {
         int ret = 0;
         boolean check;
@@ -82,17 +84,20 @@ public class ProjetoController {
 
         daoProj = new ProjetoDAO();
         check = daoProj.addComentario(idProjeto, idPergunta, comentario);
-        if (!check) ret = 2;
-        else ret = 3;
-        
+        if (!check) {
+            ret = 2;
+        } else {
+            ret = 3;
+        }
+
         return ret;
     }
-    
+
     public Projeto getProjetoPorId(int idProjeto) {
 
         daoProj = new ProjetoDAO();
         proj = daoProj.getProjetoPorID(idProjeto);
-        
+
         ArrayList<String> respostas;
         respostas = daoProj.getRespostas(idProjeto);
         proj.setRespostas(respostas);
@@ -101,10 +106,10 @@ public class ProjetoController {
     }
 
     public JTable updateTable(JTable tabelaProjetos, String flagStatusProjeto) {
-        
+
         daoProj = new ProjetoDAO();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
-        
+
         //Remove dados antigos da tabela -> Reseta tabela
         if (tableModel.getRowCount() > 0) {
             int linhas = tableModel.getRowCount();
@@ -112,7 +117,7 @@ public class ProjetoController {
                 tableModel.removeRow(0);
             }
         }
-        
+
         ArrayList<Projeto> projetos = new ArrayList<>();
         projetos = daoProj.getProjetos();
 
@@ -129,11 +134,11 @@ public class ProjetoController {
                 indexTab++;
             }
         }
-        
+
         return tabelaProjetos;
     }
     
-    public JTable updateTableProjetosOrientador(JTable tabelaProjetos, String nomeProf) {
+    public JTable updateTableProjetosAvaliador(JTable tabelaProjetos, String emailAvaliador){
         
         daoProj = new ProjetoDAO();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
@@ -145,22 +150,11 @@ public class ProjetoController {
                 tableModel.removeRow(0);
             }
         }
-        
         ArrayList<Projeto> projetos = new ArrayList<>();
-        projetos = daoProj.getProjetosOrientador(nomeProf);
+        projetos = daoProj.getProjetosAvaliador(emailAvaliador);
         
-        // adicionando a tabela
-        /*
-            o professor pode adicionar comentarios em projeto que estao em:
-                - em preenchimento
-                - em avaliacao
-                - aprovado
-
-        */
         for (int i = 0; i < projetos.size(); i++) {
-            if (projetos.get(i).getStatus().equals("Em preenchimento") ||
-                    projetos.get(i).getStatus().equals("Em avaliação") ||
-                    projetos.get(i).getStatus().equals("Aprovado")) {
+            if (projetos.get(i).getStatus().equals("Em avaliação")){
                 tableModel.addRow(new Object[]{null, null, null, null, null});
                 tabelaProjetos.setValueAt(projetos.get(i).getId(), i, 0);
                 tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), i, 1);
@@ -169,23 +163,111 @@ public class ProjetoController {
                 tabelaProjetos.setValueAt(projetos.get(i).getStatus(), i, 4);
             }
         }
-        
         // Esconde a coluna com os IDs.
         tabelaProjetos.removeColumn(tabelaProjetos.getColumnModel().getColumn(0));
-        
+
+        return tabelaProjetos;      
+    }
+
+    public JTable updateTableProjetosOrientador(JTable tabelaProjetos, String nomeProf) {
+
+        daoProj = new ProjetoDAO();
+        DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
+
+        //Remove dados antigos da tabela -> Reseta tabela
+        if (tableModel.getRowCount() > 0) {
+            int linhas = tableModel.getRowCount();
+            for (int i = 0; i < linhas; i++) {
+                tableModel.removeRow(0);
+            }
+        }
+
+        ArrayList<Projeto> projetos = new ArrayList<>();
+        projetos = daoProj.getProjetosOrientador(nomeProf);
+
+        // adicionando a tabela
+        /*
+         o professor pode adicionar comentarios em projeto que estao em:
+         - em preenchimento
+         - em avaliacao
+         - aprovado
+
+         */
+        for (int i = 0; i < projetos.size(); i++) {
+            if (projetos.get(i).getStatus().equals("Em preenchimento")
+                    || projetos.get(i).getStatus().equals("Em avaliação")
+                    || projetos.get(i).getStatus().equals("Aprovado")) {
+                tableModel.addRow(new Object[]{null, null, null, null, null});
+                tabelaProjetos.setValueAt(projetos.get(i).getId(), i, 0);
+                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), i, 1);
+                tabelaProjetos.setValueAt(projetos.get(i).getLider(), i, 2);
+                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), i, 3);
+                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), i, 4);
+            }
+        }
+
+        // Esconde a coluna com os IDs.
+        tabelaProjetos.removeColumn(tabelaProjetos.getColumnModel().getColumn(0));
+
         return tabelaProjetos;
     }
-    
-    public boolean alreadyInTable(JTable tabela, String valor){
-        
+
+    public boolean alreadyInTable(JTable tabela, String valor) {
+
         //DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
-        
-        for(int i = 0; i < tabela.getRowCount(); i++){
-            if(tabela.getValueAt(i, 0).equals(valor)){
+        for (int i = 0; i < tabela.getRowCount(); i++) {
+            if (tabela.getValueAt(i, 0).equals(valor)) {
                 return true;
             }
-        }   
+        }
         return false;
     }
 
+    public boolean checkNota(String textNota) {
+
+        double valorConvertido;
+        textNota = textNota.replace(",", ".");
+        
+        if (textNota.length() == 3) {
+            if (textNota.contains(".")) {
+                valorConvertido = Double.parseDouble(textNota);
+                if (valorConvertido >= 0 && valorConvertido <= 10) {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        } else if (textNota.length() > 0 && textNota.length() <= 3) {
+            valorConvertido = Double.parseDouble(textNota);
+            if (valorConvertido >= 0 && valorConvertido <= 10) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    
+    public boolean atribuirNotaPergunta(int idPergunta, String emailAvaliador, int idProjeto, double nota){
+        
+        daoProj = new ProjetoDAO();
+        return daoProj.setNotas(idPergunta, emailAvaliador, idProjeto, nota);    
+        
+    }
+    
+    public ArrayList<Double> getNotasProjetoPorAvaliador(int idProjeto, String emailAvaliador){
+        return daoProj.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
+    }
+    
+    public boolean checkFinalizarProjeto(int projetoId){      
+        return daoProj.checkFinalizarProjeto(projetoId);
+    }
+    
+    public int checkNumeroAvaliadores(int projetoId){
+        return daoProj.countAvaliadoresProjeto(projetoId);
+    }
+
+    public boolean finalizaProjeto(int projetoId){
+        return daoProj.FinalizaAndCalculaNota(projetoId);
+    }
+    
 }

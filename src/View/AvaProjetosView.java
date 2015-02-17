@@ -1,27 +1,45 @@
-
 package View;
 
 import Controller.ProjetoController;
+import Controller.Sessao;
+import Model.Tabelas.Projeto;
+import Utils.XMLParser;
 import java.awt.CardLayout;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.jdom2.JDOMException;
 
 public class AvaProjetosView extends javax.swing.JFrame {
 
-    ProjetoController projControler;
-    
+    ProjetoController projController;
+    XMLParser xmlParser;
+    Projeto proj;
+    private ArrayList<String> titulos;
+    private ArrayList<String> questoes;
+    private ArrayList<String> respostas;
+
+    int idPergunta;
+    int idProjeto;
+    double nota;
+    String emailAvaliador;
+    ArrayList<Double> notas;
+
     /**
      * Creates new form ProjetosAdministrador
      */
     public AvaProjetosView() {
+
         initComponents();
-        projControler = new ProjetoController();
-        tabelaProjetosAvaliador = projControler.updateTable(tabelaProjetosAvaliador, "Em avaliação");
-        
-        // Esconde a coluna com os IDs.
-        tabelaProjetosAvaliador.removeColumn(tabelaProjetosAvaliador.getColumnModel().getColumn(0));
-        
-        // Para utilização mais tarde
-        //System.out.println("Id: " + tabelaProjetosAdmin.getModel().getValueAt(0, 0));
+        emailAvaliador = Sessao.getInstance().getUsuario().getEmail();
+
+        projController = new ProjetoController();
+        tabelaProjetosAvaliador = projController.updateTableProjetosAvaliador(tabelaProjetosAvaliador, emailAvaliador);
+
+//        // Esconde a coluna com os IDs.
+//        tabelaProjetosAvaliador.removeColumn(tabelaProjetosAvaliador.getColumnModel().getColumn(0));
     }
 
     /**
@@ -38,7 +56,21 @@ public class AvaProjetosView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProjetosAvaliador = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        attrAvaliadores = new javax.swing.JPanel();
+        addNotaProjetoPanel = new javax.swing.JPanel();
+        questionTitlePanel = new javax.swing.JPanel();
+        labelTituloProjeto = new javax.swing.JLabel();
+        tituloProjeto = new javax.swing.JLabel();
+        questionContentPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        quadroResposta = new javax.swing.JTextArea();
+        labelNota = new javax.swing.JLabel();
+        textoExplicativo = new javax.swing.JLabel();
+        questaoProjeto = new javax.swing.JLabel();
+        textNota = new javax.swing.JTextField();
+        btnVoltarProjetos = new javax.swing.JButton();
+        btnAtribuirNota = new javax.swing.JButton();
+        perguntasComboBox = new javax.swing.JComboBox();
+        labelPerguntaCombo = new javax.swing.JLabel();
         projetosAvaliadorMenuPanel = new javax.swing.JPanel();
         bttnPreencherAvaliacao = new javax.swing.JButton();
         bttnFinalizarAvaliacao = new javax.swing.JButton();
@@ -93,7 +125,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
             projetosAvaliadorIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projetosAvaliadorIndexLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projetosAvaliadorIndexLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -106,24 +138,168 @@ public class AvaProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        projetosAvaliadorContentPanel.add(projetosAvaliadorIndex, "professorIndex");
+        projetosAvaliadorContentPanel.add(projetosAvaliadorIndex, "avaliadorIndex");
 
-        javax.swing.GroupLayout attrAvaliadoresLayout = new javax.swing.GroupLayout(attrAvaliadores);
-        attrAvaliadores.setLayout(attrAvaliadoresLayout);
-        attrAvaliadoresLayout.setHorizontalGroup(
-            attrAvaliadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+        questionTitlePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        labelTituloProjeto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTituloProjeto.setText("Titulo do Projeto:");
+
+        tituloProjeto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tituloProjeto.setText(" ");
+
+        javax.swing.GroupLayout questionTitlePanelLayout = new javax.swing.GroupLayout(questionTitlePanel);
+        questionTitlePanel.setLayout(questionTitlePanelLayout);
+        questionTitlePanelLayout.setHorizontalGroup(
+            questionTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(questionTitlePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTituloProjeto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tituloProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        attrAvaliadoresLayout.setVerticalGroup(
-            attrAvaliadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+        questionTitlePanelLayout.setVerticalGroup(
+            questionTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionTitlePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(questionTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTituloProjeto)
+                    .addComponent(tituloProjeto))
+                .addContainerGap())
         );
 
-        projetosAvaliadorContentPanel.add(attrAvaliadores, "card3");
+        quadroResposta.setColumns(20);
+        quadroResposta.setRows(5);
+        quadroResposta.setEnabled(false);
+        jScrollPane2.setViewportView(quadroResposta);
+
+        labelNota.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelNota.setText("Nota:");
+
+        textoExplicativo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        textoExplicativo.setText("Quadro _ - ");
+
+        questaoProjeto.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        questaoProjeto.setText("Questão.");
+        questaoProjeto.setMaximumSize(new java.awt.Dimension(691, 20));
+
+        textNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNotaActionPerformed(evt);
+            }
+        });
+        textNota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textNotaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textNotaKeyTyped(evt);
+            }
+        });
+
+        btnVoltarProjetos.setText("Retornar");
+        btnVoltarProjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarProjetosActionPerformed(evt);
+            }
+        });
+
+        btnAtribuirNota.setText("Atribuir Nota");
+        btnAtribuirNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtribuirNotaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout questionContentPanelLayout = new javax.swing.GroupLayout(questionContentPanel);
+        questionContentPanel.setLayout(questionContentPanelLayout);
+        questionContentPanelLayout.setHorizontalGroup(
+            questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+            .addGroup(questionContentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(questionContentPanelLayout.createSequentialGroup()
+                        .addComponent(labelNota)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textNota, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVoltarProjetos)
+                        .addGap(104, 104, 104))
+                    .addGroup(questionContentPanelLayout.createSequentialGroup()
+                        .addComponent(btnAtribuirNota)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        questionContentPanelLayout.setVerticalGroup(
+            questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(questionContentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(questionContentPanelLayout.createSequentialGroup()
+                        .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelNota))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(btnAtribuirNota))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionContentPanelLayout.createSequentialGroup()
+                        .addComponent(btnVoltarProjetos)
+                        .addGap(25, 25, 25))))
+        );
+
+        perguntasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        perguntasComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perguntasComboBoxActionPerformed(evt);
+            }
+        });
+
+        labelPerguntaCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelPerguntaCombo.setText("Escolha a pergunta:");
+
+        javax.swing.GroupLayout addNotaProjetoPanelLayout = new javax.swing.GroupLayout(addNotaProjetoPanel);
+        addNotaProjetoPanel.setLayout(addNotaProjetoPanelLayout);
+        addNotaProjetoPanelLayout.setHorizontalGroup(
+            addNotaProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addNotaProjetoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addNotaProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(questionContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(addNotaProjetoPanelLayout.createSequentialGroup()
+                        .addComponent(questionTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addComponent(labelPerguntaCombo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        addNotaProjetoPanelLayout.setVerticalGroup(
+            addNotaProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addNotaProjetoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addNotaProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(questionTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPerguntaCombo)
+                    .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(questionContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        projetosAvaliadorContentPanel.add(addNotaProjetoPanel, "attrNota");
 
         projetosAvaliadorMenuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -196,17 +372,140 @@ public class AvaProjetosView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttnPreencherAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnPreencherAvaliacaoActionPerformed
-        
+
+        textoExplicativo.setText("Quadro _ -");
+        questaoProjeto.setText("Questão");
+        quadroResposta.setText("");
+        perguntasComboBox.setSelectedIndex(0);
+
+        notas = new ArrayList<>();
+
+        int rowIndex = tabelaProjetosAvaliador.getSelectedRow();
+
+        idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
+
+        if (rowIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Escolha um Projeto da tabela para avaliar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            bttnPreencherAvaliacao.setVisible(false);
+            bttnFinalizarAvaliacao.setVisible(false);
+
+            CardLayout content = (CardLayout) (projetosAvaliadorContentPanel.getLayout());
+            content.show(projetosAvaliadorContentPanel, "attrNota");
+
+            int idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
+
+            projController = new ProjetoController();
+            proj = projController.getProjetoPorId(idProjeto);
+            notas = projController.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
+
+            textNota.setText("");
+
+            titulos = projController.getPerguntas(0);
+            questoes = projController.getPerguntas(1);
+            respostas = proj.getRespostas();
+
+            tituloProjeto.setText(proj.getTitulo());
+            if (perguntasComboBox.getItemCount() <= 1) {
+                for (int i = 1; i <= titulos.size(); i++) {
+                    perguntasComboBox.addItem("Pergunta " + i);
+                }
+            }
+        }
     }//GEN-LAST:event_bttnPreencherAvaliacaoActionPerformed
 
     private void bttnFinalizarAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFinalizarAvaliacaoActionPerformed
-        
+
+        int rowIndex = tabelaProjetosAvaliador.getSelectedRow();
+        idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
+
+        if (projController.checkNumeroAvaliadores(idProjeto) >= 3) {
+            if (projController.checkFinalizarProjeto(idProjeto)) {
+                if (projController.finalizaProjeto(idProjeto)) {
+                    JOptionPane.showMessageDialog(perguntasComboBox, "Projeto finalizado com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(perguntasComboBox, "Houve um erro ao finalizar o projeto.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(perguntasComboBox, "Verifique se todos os avaliadores atribuiram"
+                        + " suas notas.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(perguntasComboBox, "O projeto precisa ter no mínimo três avaliadores"
+                    + " para ser finalizado.");
+        }
+
     }//GEN-LAST:event_bttnFinalizarAvaliacaoActionPerformed
 
     private void bttnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltarActionPerformed
         dispose();
         new HomeAvaliador().setVisible(true);
     }//GEN-LAST:event_bttnVoltarActionPerformed
+
+    private void perguntasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perguntasComboBoxActionPerformed
+
+        int perguntaId = perguntasComboBox.getSelectedIndex();
+
+        perguntaId--;
+
+        if (perguntaId >= 0) {
+            int temp = perguntaId + 1;
+            textoExplicativo.setText("Quadro " + temp + " - " + titulos.get(perguntaId));
+            questaoProjeto.setText(questoes.get(perguntaId));
+
+            if (respostas.size() > 0 && respostas.get(perguntaId) != null) {
+                quadroResposta.setText(respostas.get(perguntaId));
+            } else {
+                quadroResposta.setText("");
+            }
+
+            Double nota = notas.get(perguntaId);
+            if (nota != -1) {
+                textNota.setText(nota.toString());
+            } else {
+                textNota.setText("");
+            }
+
+        }
+    }//GEN-LAST:event_perguntasComboBoxActionPerformed
+
+    private void textNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNotaActionPerformed
+
+    private void btnVoltarProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarProjetosActionPerformed
+        bttnPreencherAvaliacao.setVisible(true);
+        bttnFinalizarAvaliacao.setVisible(true);
+
+        CardLayout content = (CardLayout) (projetosAvaliadorContentPanel.getLayout());
+        content.show(projetosAvaliadorContentPanel, "avaliadorIndex");
+    }//GEN-LAST:event_btnVoltarProjetosActionPerformed
+
+    private void textNotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNotaKeyTyped
+
+    }//GEN-LAST:event_textNotaKeyTyped
+
+    private void textNotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNotaKeyPressed
+
+    }//GEN-LAST:event_textNotaKeyPressed
+
+    private void btnAtribuirNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtribuirNotaActionPerformed
+        if (projController.checkNota(textNota.getText())) {
+            String notaText = textNota.getText().replace(",", ".");
+            nota = Double.parseDouble(notaText);
+            idPergunta = perguntasComboBox.getSelectedIndex();
+            emailAvaliador = Sessao.getInstance().getUsuario().getEmail();
+            if (projController.atribuirNotaPergunta(idPergunta, emailAvaliador, idProjeto, nota)) {
+                JOptionPane.showMessageDialog(rootPane, "Nota atribuída com sucesso");
+                notas = projController.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Houve um erro ao atribuir a nota");
+            }
+        } else {
+            JOptionPane.showMessageDialog(perguntasComboBox, "Valor de nota incorrreto."
+                    + "\nInsira valores de 0 a 10.");
+        }
+    }//GEN-LAST:event_btnAtribuirNotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,15 +550,29 @@ public class AvaProjetosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel attrAvaliadores;
+    private javax.swing.JPanel addNotaProjetoPanel;
+    private javax.swing.JButton btnAtribuirNota;
+    private javax.swing.JButton btnVoltarProjetos;
     private javax.swing.JButton bttnFinalizarAvaliacao;
     private javax.swing.JButton bttnPreencherAvaliacao;
     private javax.swing.JButton bttnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelNota;
+    private javax.swing.JLabel labelPerguntaCombo;
+    private javax.swing.JLabel labelTituloProjeto;
+    private javax.swing.JComboBox perguntasComboBox;
     private javax.swing.JPanel projetosAvaliadorContentPanel;
     private javax.swing.JPanel projetosAvaliadorIndex;
     private javax.swing.JPanel projetosAvaliadorMenuPanel;
+    private javax.swing.JTextArea quadroResposta;
+    private javax.swing.JLabel questaoProjeto;
+    private javax.swing.JPanel questionContentPanel;
+    private javax.swing.JPanel questionTitlePanel;
     private javax.swing.JTable tabelaProjetosAvaliador;
+    private javax.swing.JTextField textNota;
+    private javax.swing.JLabel textoExplicativo;
+    private javax.swing.JLabel tituloProjeto;
     // End of variables declaration//GEN-END:variables
 }

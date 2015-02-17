@@ -4,6 +4,7 @@ package Controller;
 import Model.Database.AdministradorDAO;
 import Model.Database.UsuarioDAO;
 import Model.Tabelas.Administrador;
+import Model.Tabelas.Usuario;
 
 public class LoginController {
     
@@ -16,6 +17,7 @@ public class LoginController {
         
         String usrPapel = usrDAO.checkLogin(userEmail, userPass);
         
+        
         /*
             0 = erro, campos email e/ou senha em branco
             1 = erro, usuario nao encontrado
@@ -23,6 +25,10 @@ public class LoginController {
             3 = sucesso, avaliador
             4 = sucesso, professor
         */
+        Usuario u = new Usuario();
+        Sessao session = Sessao.getInstance();
+        u.setEmail(userEmail);
+        
         
         int intUsrPapel;
         switch(usrPapel) {
@@ -32,13 +38,19 @@ public class LoginController {
                 
             case "Administrador":
                 intUsrPapel = 2; // sucesso, administrador
+                u.setPapel("Administrador");
+                session.setUsuario(u);
             break;
                 
             case "Avaliador":
+                u.setPapel("Avaliador");
+                session.setUsuario(u);
                 intUsrPapel = 3; // sucesso, avaliador
             break;
                 
             case "Professor":
+                u.setPapel("Professor");
+                session.setUsuario(u);
                 intUsrPapel = 4; // sucesso, professor
             break;
             
