@@ -1,7 +1,7 @@
 
 package Controller;
 
-import Model.Database.ProfessorDAO;
+import Model.Negocio.EnProfessor;
 import Model.Tabelas.Professor;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class ProfessorController {
     
     private Professor p;
-    private ProfessorDAO pd;
+    private EnProfessor enProf;
 
     public boolean addProfessor(String nome, String email, String senha, String departamento, String disc_principal) {
         
@@ -19,7 +19,7 @@ public class ProfessorController {
         if (email.equals("") || nome.equals("") || senha.equals("") || 
                 departamento.equals("") || disc_principal.equals("")) return check;
         
-        pd = new ProfessorDAO();
+        enProf = new EnProfessor();
         p = new Professor();
         
         p.setNome(nome);
@@ -31,24 +31,24 @@ public class ProfessorController {
         p.setDisciplinaPrincipal(disc_principal);
         
         String profJaCadastrado = "";
-        profJaCadastrado = pd.checkEmailExists(email);
+        profJaCadastrado = enProf.checkEmailExists(email);
         if (profJaCadastrado.equals(email)) {
             // professor ja existe, alterar para Ativo
-            check = pd.editProfessor(p);
+            check = enProf.editProfessor(p);
         } else {
             // professor nao existe ainda, adicionar normalmente
-            check = pd.addProfessor(p);
+            check = enProf.addProfessor(p);
         }
         
         return check;
     }
 
     public Professor getProfessorByEmail(String emailProfSelecionado) {
-        
-        pd = new ProfessorDAO();
+
         p = new Professor();
+        enProf = new EnProfessor();
         
-        p = pd.getProfessor(emailProfSelecionado);
+        p = enProf.getProfessor(emailProfSelecionado);
         
         return p;
     }
@@ -56,9 +56,9 @@ public class ProfessorController {
     public boolean updateProfessor(String nome, String email, String senha, String departamento, String disc_principal, String status) {
         
         boolean check = false;
-        
-        pd = new ProfessorDAO();
+
         p = new Professor();
+        enProf = new EnProfessor();
         
         p.setNome(nome);
         p.setEmail(email);
@@ -67,7 +67,7 @@ public class ProfessorController {
         p.setDisciplinaPrincipal(disc_principal);
         p.setStatus(status);
         
-        check = pd.editProfessor(p);
+        check = enProf.editProfessor(p);
         
         return check;
         
@@ -79,13 +79,13 @@ public class ProfessorController {
         boolean check = false;
         
         p = new Professor();
-        pd = new ProfessorDAO();
+       enProf = new EnProfessor();
         
-        p = pd.getProfessor(profEmail);
+        p = enProf.getProfessor(profEmail);
         if (p.getStatus().equals("Inativo")) {
             message += "Não é possível excluir um Professor com Status 'Inativo'";
         } else {
-            check = pd.deleteProfessor(profEmail);
+            check = enProf.deleteProfessor(profEmail);
             if (check) message += "Professor excluído com sucesso!";
             else message += "Não foi possível excluir o Professor devido a um erro no Banco de Dados";
         }
@@ -95,7 +95,7 @@ public class ProfessorController {
     
     public JTable updateTable(JTable tabelaProfessores) {
         
-        pd = new ProfessorDAO();
+        enProf = new EnProfessor();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProfessores.getModel();
         
         //Remove dados antigos da tabela -> Reseta tabela
@@ -107,7 +107,7 @@ public class ProfessorController {
         }
         
         ArrayList<Professor> professores = new ArrayList<>();
-        professores = pd.getProfessores();
+        professores = enProf.getProfessores();
 
         // adicionando a tabela
         for (int i = 0; i < professores.size(); i++) {

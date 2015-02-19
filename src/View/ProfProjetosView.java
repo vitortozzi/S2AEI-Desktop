@@ -7,12 +7,8 @@ import Model.Tabelas.Professor;
 import Model.Tabelas.Projeto;
 import Utils.XMLParser;
 import java.awt.CardLayout;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.jdom2.JDOMException;
 
 public class ProfProjetosView extends javax.swing.JFrame {
 
@@ -44,8 +40,6 @@ public class ProfProjetosView extends javax.swing.JFrame {
 
         // a busca dos projetos que um prof. orienta eh pelo nome, nao email
         tabelaProjetosProf = projController.updateTableProjetosOrientador(tabelaProjetosProf, prof.getNome());
-        
-        //System.out.println("Id: " + tabelaProjetosAdmin.getModel().getValueAt(0, 0));
     }
 
     /**
@@ -450,6 +444,11 @@ public class ProfProjetosView extends javax.swing.JFrame {
             } else {
                 quadroComentarioProf.setText("");
             }
+        } else {
+            textoExplicativo.setText("Quadro _ -");
+            questaoProjeto.setText("Questão");
+            quadroResposta.setText("");
+            quadroComentarioProf.setText("");
         }
     }//GEN-LAST:event_perguntasComboBoxActionPerformed
 

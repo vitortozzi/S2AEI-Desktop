@@ -15,14 +15,12 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
      */
     public AdmAcompanharProjetos() {
         initComponents();
+
         projController = new ProjetoController();
         tabelaProjetosAdmin = projController.updateTable(tabelaProjetosAdmin, "Aprovado");
         
         // Esconde a coluna com os IDs.
-        tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
-        
-        // Para utilização mais tarde
-        //System.out.println("Id: " + tabelaProjetosAdmin.getModel().getValueAt(0, 0));
+        //tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
     }
 
     /**
@@ -69,14 +67,14 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Título", "Líder", "Orientador", "Status"
+                "Título", "Líder", "Orientador", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -93,7 +91,6 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
             tabelaProjetosAdmin.getColumnModel().getColumn(1).setResizable(false);
             tabelaProjetosAdmin.getColumnModel().getColumn(2).setResizable(false);
             tabelaProjetosAdmin.getColumnModel().getColumn(3).setResizable(false);
-            tabelaProjetosAdmin.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
@@ -340,11 +337,12 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
             CardLayout menu = (CardLayout) (projetosAdminMenuPanel.getLayout());
             menu.show(projetosAdminMenuPanel, "altStatusMenuPanel");
 
-            int idProjeto = (int) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 0);
+            //int idProjeto = (int) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 0);
+            String nomeLider = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 1);
         
             Projeto proj;
             projController = new ProjetoController();
-            proj = projController.getProjetoPorId(idProjeto);
+            proj = projController.getProjetoPorLider(nomeLider);
 
             tituloTextField.setText(proj.getTitulo());
             areaTextField.setText(proj.getArea());
@@ -370,10 +368,10 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
     private void bttnConfirmarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnConfirmarAltActionPerformed
         
         String message = "";
-        String emailLider = alunoLiderTextField.getText();
+        String nomeLider = alunoLiderTextField.getText();
         String novoStatus = (String) statusComboBox.getSelectedItem();
             
-        String temp = "Deseja mesmo alterar o Status do Projeto para:\n";
+        String temp = "Deseja mesmo alterar o Status do Projeto do ("+nomeLider+") para:\n";
         temp += "\n\t\t" + novoStatus;
 
         int escolha = JOptionPane.showConfirmDialog(null, temp, "Confirmar alteração de Status?", JOptionPane.OK_CANCEL_OPTION, 0, null);
@@ -381,7 +379,7 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
         if (escolha == JOptionPane.OK_OPTION) {
 
             projController = new ProjetoController();
-            message = projController.alterarStatusProjeto(emailLider, novoStatus);
+            message = projController.alterarStatusProjeto(nomeLider, novoStatus);
 
             JOptionPane.showMessageDialog(null, message);
 
@@ -393,7 +391,6 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
             menu.show(projetosAdminMenuPanel, "indexMenuPanel");
             
             tabelaProjetosAdmin = projController.updateTable(tabelaProjetosAdmin, "Aprovado");
-            tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
         }
         
     }//GEN-LAST:event_bttnConfirmarAltActionPerformed

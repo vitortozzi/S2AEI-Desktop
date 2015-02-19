@@ -1,7 +1,6 @@
 
 package View;
 
-import java.awt.event.ActionListener;
 import Controller.LoginController;
 import javax.swing.JOptionPane;
 

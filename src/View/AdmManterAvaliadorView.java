@@ -7,10 +7,6 @@ import Model.Tabelas.Avaliador;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author israellaurensi
- */
 public class AdmManterAvaliadorView extends javax.swing.JFrame {
 
     AvaliadorController avaController;

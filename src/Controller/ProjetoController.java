@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Database.ProjetoDAO;
+import Model.Negocio.EnProjeto;
 import Model.Tabelas.Projeto;
 import Utils.XMLParser;
 import View.ProfProjetosView;
@@ -14,17 +14,18 @@ import org.jdom2.JDOMException;
 
 public class ProjetoController {
 
-    ProjetoDAO daoProj;
-    Projeto proj;
-    XMLParser xmlParser;
+    private Projeto proj;
+    private EnProjeto enProjeto;
+    private XMLParser xmlParser;
 
-    public String alterarStatusProjeto(String emailLider, String novoStatus) {
-        daoProj = new ProjetoDAO();
+    public String alterarStatusProjeto(String nomeLider, String novoStatus) {
+
+        enProjeto = new EnProjeto();
 
         String message = "";
         boolean check;
 
-        check = daoProj.alteraStatusProjetoAprovado(emailLider, novoStatus);
+        check = enProjeto.alteraStatusProjetoAprovado(nomeLider, novoStatus);
 
         if (check) {
             message += "Status do projeto alterado com sucesso!";
@@ -62,8 +63,8 @@ public class ProjetoController {
 
         ArrayList<String> comentarios;
 
-        daoProj = new ProjetoDAO();
-        comentarios = daoProj.getComentarios(idProjeto);
+        enProjeto = new EnProjeto();
+        comentarios = enProjeto.getComentarios(idProjeto);
 
         return comentarios;
     }
@@ -82,8 +83,8 @@ public class ProjetoController {
             return ret;
         }
 
-        daoProj = new ProjetoDAO();
-        check = daoProj.addComentario(idProjeto, idPergunta, comentario);
+        enProjeto = new EnProjeto();
+        check = enProjeto.addComentario(idProjeto, idPergunta, comentario);
         if (!check) {
             ret = 2;
         } else {
@@ -95,19 +96,29 @@ public class ProjetoController {
 
     public Projeto getProjetoPorId(int idProjeto) {
 
-        daoProj = new ProjetoDAO();
-        proj = daoProj.getProjetoPorID(idProjeto);
+        enProjeto = new EnProjeto();
+        proj = enProjeto.getProjetoPorID(idProjeto);
 
         ArrayList<String> respostas;
-        respostas = daoProj.getRespostas(idProjeto);
+        respostas = enProjeto.getRespostas(idProjeto);
         proj.setRespostas(respostas);
 
         return proj;
     }
 
+    public Projeto getProjetoPorLider(String nomeLider) {
+        
+        enProjeto = new EnProjeto();
+        proj = enProjeto.getProjetoPorLider(nomeLider);
+        
+        return proj;
+
+    }
+    
     public JTable updateTable(JTable tabelaProjetos, String flagStatusProjeto) {
 
-        daoProj = new ProjetoDAO();
+        enProjeto = new EnProjeto();
+
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
 
         //Remove dados antigos da tabela -> Reseta tabela
@@ -119,18 +130,18 @@ public class ProjetoController {
         }
 
         ArrayList<Projeto> projetos = new ArrayList<>();
-        projetos = daoProj.getProjetos();
+        projetos = enProjeto.getProjetos();
 
         // adicionando a tabela
         int indexTab = 0;
         for (int i = 0; i < projetos.size(); i++) {
             if (projetos.get(i).getStatus().equals(flagStatusProjeto)) {
-                tableModel.addRow(new Object[]{null, null, null, null, null});
-                tabelaProjetos.setValueAt(projetos.get(i).getId(), indexTab, 0);
-                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), indexTab, 1);
-                tabelaProjetos.setValueAt(projetos.get(i).getLider(), indexTab, 2);
-                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), indexTab, 3);
-                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), indexTab, 4);
+                tableModel.addRow(new Object[]{null, null, null, null});
+                //tabelaProjetos.setValueAt(projetos.get(i).getId(), indexTab, 0);
+                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), indexTab, 0);
+                tabelaProjetos.setValueAt(projetos.get(i).getLider(), indexTab, 1);
+                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), indexTab, 2);
+                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), indexTab, 3);
                 indexTab++;
             }
         }
@@ -140,7 +151,8 @@ public class ProjetoController {
     
     public JTable updateTableProjetosAvaliador(JTable tabelaProjetos, String emailAvaliador){
         
-        daoProj = new ProjetoDAO();
+        enProjeto = new EnProjeto();
+
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
         
         //Remove dados antigos da tabela -> Reseta tabela
@@ -150,19 +162,23 @@ public class ProjetoController {
                 tableModel.removeRow(0);
             }
         }
+
         ArrayList<Projeto> projetos = new ArrayList<>();
-        projetos = daoProj.getProjetosAvaliador(emailAvaliador);
-        
+        projetos = enProjeto.getProjetosAvaliador(emailAvaliador);
+
+        int temp = 0;
         for (int i = 0; i < projetos.size(); i++) {
             if (projetos.get(i).getStatus().equals("Em avaliação")){
                 tableModel.addRow(new Object[]{null, null, null, null, null});
-                tabelaProjetos.setValueAt(projetos.get(i).getId(), i, 0);
-                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), i, 1);
-                tabelaProjetos.setValueAt(projetos.get(i).getLider(), i, 2);
-                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), i, 3);
-                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), i, 4);
+                tabelaProjetos.setValueAt(projetos.get(i).getId(), temp, 0);
+                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), temp, 1);
+                tabelaProjetos.setValueAt(projetos.get(i).getLider(), temp, 2);
+                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), temp, 3);
+                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), temp, 4);
+                temp++;
             }
         }
+        
         // Esconde a coluna com os IDs.
         tabelaProjetos.removeColumn(tabelaProjetos.getColumnModel().getColumn(0));
 
@@ -171,7 +187,7 @@ public class ProjetoController {
 
     public JTable updateTableProjetosOrientador(JTable tabelaProjetos, String nomeProf) {
 
-        daoProj = new ProjetoDAO();
+        enProjeto = new EnProjeto();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaProjetos.getModel();
 
         //Remove dados antigos da tabela -> Reseta tabela
@@ -183,9 +199,8 @@ public class ProjetoController {
         }
 
         ArrayList<Projeto> projetos = new ArrayList<>();
-        projetos = daoProj.getProjetosOrientador(nomeProf);
+        projetos = enProjeto.getProjetoPorEntidade("Professor", nomeProf);
 
-        // adicionando a tabela
         /*
          o professor pode adicionar comentarios em projeto que estao em:
          - em preenchimento
@@ -249,25 +264,26 @@ public class ProjetoController {
     
     public boolean atribuirNotaPergunta(int idPergunta, String emailAvaliador, int idProjeto, double nota){
         
-        daoProj = new ProjetoDAO();
-        return daoProj.setNotas(idPergunta, emailAvaliador, idProjeto, nota);    
+        enProjeto = new EnProjeto();
+
+        return enProjeto.setNotas(idPergunta, emailAvaliador, idProjeto, nota);
         
     }
     
     public ArrayList<Double> getNotasProjetoPorAvaliador(int idProjeto, String emailAvaliador){
-        return daoProj.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
+        return enProjeto.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
     }
     
     public boolean checkFinalizarProjeto(int projetoId){      
-        return daoProj.checkFinalizarProjeto(projetoId);
+        return enProjeto.checkFinalizarProjeto(projetoId);
     }
     
     public int checkNumeroAvaliadores(int projetoId){
-        return daoProj.countAvaliadoresProjeto(projetoId);
+        return enProjeto.countAvaliadoresProjeto(projetoId);
     }
 
     public boolean finalizaProjeto(int projetoId){
-        return daoProj.FinalizaAndCalculaNota(projetoId);
+        return enProjeto.finalizaAndCalculaNota(projetoId);
     }
     
 }

@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.Database.AvaliadorDAO;
-import Model.Database.ProjetoDAO;
+import Model.Negocio.EnAvaliador;
+import Model.Negocio.EnProjeto;
 import Model.Tabelas.Avaliador;
 import Model.Tabelas.Projeto;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import javax.swing.table.DefaultTableModel;
 public class AvaliadorController {
 
     private Avaliador av;
-    private AvaliadorDAO avd;
-    private ProjetoDAO daoProjeto;
+    private EnAvaliador enAva;
+    private EnProjeto enProjeto;
 
     public boolean addAvaliador(String nome, String email, String senha, String area, String formacao) {
 
@@ -23,8 +23,8 @@ public class AvaliadorController {
             return check;
         }
 
-        avd = new AvaliadorDAO();
         av = new Avaliador();
+        enAva = new EnAvaliador();
 
         av.setNome(nome);
         av.setEmail(email);
@@ -35,13 +35,13 @@ public class AvaliadorController {
         av.setFormacao(formacao);
 
         String avaJaCadastrado = "";
-        avaJaCadastrado = avd.checkEmailExists(email);
+        avaJaCadastrado = enAva.checkEmailExists(email);
         if (avaJaCadastrado.equals(email)) {
             // avaliador ja existe, alterar para Ativo
-            check = avd.editAvaliador(av);
+            check = enAva.editAvaliador(av);
         } else {
             // avaliador nao existe ainda, adicionar normalmente
-            check = avd.addAvaliador(av);
+            check = enAva.addAvaliador(av);
         }
 
         return check;
@@ -49,10 +49,10 @@ public class AvaliadorController {
 
     public Avaliador getAvaliadorByEmail(String emailAvaliadorSelecionado) {
 
-        avd = new AvaliadorDAO();
+        enAva = new EnAvaliador();
         av = new Avaliador();
 
-        av = avd.getAvaliador(emailAvaliadorSelecionado);
+        av = enAva.getAvaliador(emailAvaliadorSelecionado);
 
         return av;
     }
@@ -61,7 +61,7 @@ public class AvaliadorController {
 
         boolean check = false;
 
-        avd = new AvaliadorDAO();
+        enAva = new EnAvaliador();
         av = new Avaliador();
 
         av.setNome(nome);
@@ -71,7 +71,7 @@ public class AvaliadorController {
         av.setFormacao(formacao);
         av.setStatus(status);
 
-        check = avd.editAvaliador(av);
+        check = enAva.editAvaliador(av);
 
         return check;
 
@@ -83,13 +83,13 @@ public class AvaliadorController {
         boolean check = false;
 
         av = new Avaliador();
-        avd = new AvaliadorDAO();
+        enAva = new EnAvaliador();
 
-        av = avd.getAvaliador(avaliadorEmail);
+        av = enAva.getAvaliador(avaliadorEmail);
         if (av.getStatus().equals("Inativo")) {
             message += "Não é possível excluir um Avaliador com Status 'Inativo'";
         } else {
-            check = avd.deleteAvaliador(avaliadorEmail);
+            check = enAva.deleteAvaliador(avaliadorEmail);
             if (check) {
                 message += "Avaliador excluído com sucesso!";
             } else {
@@ -102,7 +102,7 @@ public class AvaliadorController {
 
     public JTable updateTable(JTable tabelaAvaliadores) {
 
-        avd = new AvaliadorDAO();
+        enAva = new EnAvaliador();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaAvaliadores.getModel();
 
         //Remove dados antigos da tabela -> Reseta tabela
@@ -114,7 +114,7 @@ public class AvaliadorController {
         }
 
         ArrayList<Avaliador> avaliadores = new ArrayList<>();
-        avaliadores = avd.getAvaliadores();
+        avaliadores = enAva.getAvaliadores();
 
         // adicionando na tabela
         for (int i = 0; i < avaliadores.size(); i++) {
@@ -130,8 +130,8 @@ public class AvaliadorController {
     }
 
     public ArrayList<Avaliador> getAvaliadoresAtivos() {
-        avd = new AvaliadorDAO();
-        return avd.getAvaliadoresAtivos();
+        enAva = new EnAvaliador();
+        return enAva.getAvaliadoresAtivos();
     }
 
     public JTable updateTabelaAvaliadoresProjetos(JTable tabela, String nomeProjeto) {
@@ -147,8 +147,8 @@ public class AvaliadorController {
         }
 
         ArrayList<Avaliador> avaliadores = new ArrayList<>();
-        avd = new AvaliadorDAO();
-        avaliadores = avd.getAvaliadoresProjeto(nomeProjeto);
+        enAva = new EnAvaliador();
+        avaliadores = enAva.getAvaliadoresProjeto(nomeProjeto);
         
         // adicionando na tabela
         for (int i = 0; i < avaliadores.size(); i++) {
@@ -161,20 +161,17 @@ public class AvaliadorController {
     
     public boolean setAvaliadorProjeto(Projeto p, String nomeAvaliador){
     
-        Avaliador avaliador = new Avaliador();
-
-        avaliador.setNome(nomeAvaliador);
+        av = new Avaliador();
+        enProjeto = new EnProjeto();
         
-        daoProjeto = new ProjetoDAO();
-        return daoProjeto.setAvaliadorProjeto(avaliador, p);
+        av.setNome(nomeAvaliador);
+        return enProjeto.setAvaliadorProjeto(av, p);
     }
     
     public boolean removeAvaliadorProjeto(Projeto p, String nomeAvaliador){
         
-        daoProjeto = new ProjetoDAO();
-        return daoProjeto.deleteAvaliadorProjeto(p,nomeAvaliador);
+        enProjeto = new EnProjeto();
+        return enProjeto.deleteAvaliadorProjeto(p, nomeAvaliador);
         
     }
 }
-
-

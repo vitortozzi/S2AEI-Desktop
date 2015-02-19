@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package View;
 
 
@@ -10,14 +6,8 @@ import Controller.ProfessorController;
 import Model.Tabelas.Professor;
 import java.awt.CardLayout;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author 17409
- */
 public class AdmManterProfessorView extends javax.swing.JFrame {
     
     ProfessorController profController;

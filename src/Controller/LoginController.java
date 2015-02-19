@@ -1,23 +1,24 @@
 
 package Controller;
 
-import Model.Database.AdministradorDAO;
-import Model.Database.UsuarioDAO;
-import Model.Tabelas.Administrador;
+import Model.Negocio.EnUsuario;
 import Model.Tabelas.Usuario;
 
 public class LoginController {
-    
+
+    private Sessao session;
+    private Usuario user;
+    private EnUsuario enUsuario;
+
      public int checkUser(String userEmail, String userPass) {
-        
-        UsuarioDAO usrDAO = new UsuarioDAO();
+
+        enUsuario = new EnUsuario();
         
         if (userEmail.equals("") || userPass.equals(""))
             return 0;
-        
-        String usrPapel = usrDAO.checkLogin(userEmail, userPass);
-        
-        
+
+        String usrPapel = enUsuario.checkLogin(userEmail, userPass);
+
         /*
             0 = erro, campos email e/ou senha em branco
             1 = erro, usuario nao encontrado
@@ -25,11 +26,11 @@ public class LoginController {
             3 = sucesso, avaliador
             4 = sucesso, professor
         */
-        Usuario u = new Usuario();
-        Sessao session = Sessao.getInstance();
-        u.setEmail(userEmail);
-        
-        
+
+        user = new Usuario();
+        session = Sessao.getInstance();
+        user.setEmail(userEmail);
+
         int intUsrPapel;
         switch(usrPapel) {
             case "":
@@ -38,19 +39,19 @@ public class LoginController {
                 
             case "Administrador":
                 intUsrPapel = 2; // sucesso, administrador
-                u.setPapel("Administrador");
-                session.setUsuario(u);
+                user.setPapel("Administrador");
+                session.setUsuario(user);
             break;
                 
             case "Avaliador":
-                u.setPapel("Avaliador");
-                session.setUsuario(u);
+                user.setPapel("Avaliador");
+                session.setUsuario(user);
                 intUsrPapel = 3; // sucesso, avaliador
             break;
                 
             case "Professor":
-                u.setPapel("Professor");
-                session.setUsuario(u);
+                user.setPapel("Professor");
+                session.setUsuario(user);
                 intUsrPapel = 4; // sucesso, professor
             break;
             
@@ -58,7 +59,7 @@ public class LoginController {
                 intUsrPapel = 1; // erro desconhecido, default eh 1
             break;
         }
-        
+
         return intUsrPapel;
     }
     

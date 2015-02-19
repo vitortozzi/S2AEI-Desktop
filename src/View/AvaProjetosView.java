@@ -5,12 +5,8 @@ import Controller.Sessao;
 import Model.Tabelas.Projeto;
 import Utils.XMLParser;
 import java.awt.CardLayout;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.jdom2.JDOMException;
 
 public class AvaProjetosView extends javax.swing.JFrame {
 
@@ -37,9 +33,6 @@ public class AvaProjetosView extends javax.swing.JFrame {
 
         projController = new ProjetoController();
         tabelaProjetosAvaliador = projController.updateTableProjetosAvaliador(tabelaProjetosAvaliador, emailAvaliador);
-
-//        // Esconde a coluna com os IDs.
-//        tabelaProjetosAvaliador.removeColumn(tabelaProjetosAvaliador.getColumnModel().getColumn(0));
     }
 
     /**
@@ -67,14 +60,16 @@ public class AvaProjetosView extends javax.swing.JFrame {
         textoExplicativo = new javax.swing.JLabel();
         questaoProjeto = new javax.swing.JLabel();
         textNota = new javax.swing.JTextField();
-        btnVoltarProjetos = new javax.swing.JButton();
-        btnAtribuirNota = new javax.swing.JButton();
         perguntasComboBox = new javax.swing.JComboBox();
         labelPerguntaCombo = new javax.swing.JLabel();
         projetosAvaliadorMenuPanel = new javax.swing.JPanel();
+        indexProjetosAvaliadorMenu = new javax.swing.JPanel();
         bttnPreencherAvaliacao = new javax.swing.JButton();
         bttnFinalizarAvaliacao = new javax.swing.JButton();
         bttnVoltar = new javax.swing.JButton();
+        preencherAvaliacaoMenu = new javax.swing.JPanel();
+        bttnVoltar1 = new javax.swing.JButton();
+        bttnAtribuirNota = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,12 +120,12 @@ public class AvaProjetosView extends javax.swing.JFrame {
             projetosAvaliadorIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projetosAvaliadorIndexLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projetosAvaliadorIndexLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(projetosAvaliadorIndexLayout.createSequentialGroup()
+                .addGap(269, 269, 269)
                 .addComponent(jLabel1)
-                .addGap(238, 238, 238))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         projetosAvaliadorIndexLayout.setVerticalGroup(
             projetosAvaliadorIndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +133,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -178,7 +173,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
         quadroResposta.setEnabled(false);
         jScrollPane2.setViewportView(quadroResposta);
 
-        labelNota.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelNota.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelNota.setText("Nota:");
 
         textoExplicativo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -202,41 +197,24 @@ public class AvaProjetosView extends javax.swing.JFrame {
             }
         });
 
-        btnVoltarProjetos.setText("Retornar");
-        btnVoltarProjetos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarProjetosActionPerformed(evt);
-            }
-        });
-
-        btnAtribuirNota.setText("Atribuir Nota");
-        btnAtribuirNota.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtribuirNotaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout questionContentPanelLayout = new javax.swing.GroupLayout(questionContentPanel);
         questionContentPanel.setLayout(questionContentPanelLayout);
         questionContentPanelLayout.setHorizontalGroup(
             questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
             .addGroup(questionContentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(questionContentPanelLayout.createSequentialGroup()
-                        .addComponent(labelNota)
+                        .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoExplicativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(questionContentPanelLayout.createSequentialGroup()
+                        .addComponent(labelNota, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textNota, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVoltarProjetos)
-                        .addGap(104, 104, 104))
-                    .addGroup(questionContentPanelLayout.createSequentialGroup()
-                        .addComponent(btnAtribuirNota)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(textNota, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         questionContentPanelLayout.setVerticalGroup(
             questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,17 +225,13 @@ public class AvaProjetosView extends javax.swing.JFrame {
                 .addComponent(questaoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(38, 38, 38)
                 .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(questionContentPanelLayout.createSequentialGroup()
-                        .addGroup(questionContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNota))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                        .addComponent(btnAtribuirNota))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionContentPanelLayout.createSequentialGroup()
-                        .addComponent(btnVoltarProjetos)
-                        .addGap(25, 25, 25))))
+                        .addComponent(labelNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2))
+                    .addComponent(textNota, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         perguntasComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
@@ -280,7 +254,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
                     .addComponent(questionContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(addNotaProjetoPanelLayout.createSequentialGroup()
                         .addComponent(questionTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addComponent(labelPerguntaCombo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -292,8 +266,9 @@ public class AvaProjetosView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(addNotaProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(questionTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPerguntaCombo)
-                    .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(addNotaProjetoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(perguntasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelPerguntaCombo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(questionContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -302,6 +277,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
         projetosAvaliadorContentPanel.add(addNotaProjetoPanel, "attrNota");
 
         projetosAvaliadorMenuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        projetosAvaliadorMenuPanel.setLayout(new java.awt.CardLayout());
 
         bttnPreencherAvaliacao.setText("Preencher Avaliação");
         bttnPreencherAvaliacao.addActionListener(new java.awt.event.ActionListener() {
@@ -324,39 +300,82 @@ public class AvaProjetosView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout projetosAvaliadorMenuPanelLayout = new javax.swing.GroupLayout(projetosAvaliadorMenuPanel);
-        projetosAvaliadorMenuPanel.setLayout(projetosAvaliadorMenuPanelLayout);
-        projetosAvaliadorMenuPanelLayout.setHorizontalGroup(
-            projetosAvaliadorMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(projetosAvaliadorMenuPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout indexProjetosAvaliadorMenuLayout = new javax.swing.GroupLayout(indexProjetosAvaliadorMenu);
+        indexProjetosAvaliadorMenu.setLayout(indexProjetosAvaliadorMenuLayout);
+        indexProjetosAvaliadorMenuLayout.setHorizontalGroup(
+            indexProjetosAvaliadorMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(indexProjetosAvaliadorMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bttnPreencherAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bttnPreencherAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(bttnFinalizarAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173)
-                .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        projetosAvaliadorMenuPanelLayout.setVerticalGroup(
-            projetosAvaliadorMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(projetosAvaliadorMenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(projetosAvaliadorMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(bttnPreencherAvaliacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(bttnFinalizarAvaliacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bttnVoltar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bttnFinalizarAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
+                .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        indexProjetosAvaliadorMenuLayout.setVerticalGroup(
+            indexProjetosAvaliadorMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(indexProjetosAvaliadorMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(indexProjetosAvaliadorMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bttnPreencherAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttnFinalizarAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        indexProjetosAvaliadorMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnFinalizarAvaliacao, bttnPreencherAvaliacao, bttnVoltar});
+
+        projetosAvaliadorMenuPanel.add(indexProjetosAvaliadorMenu, "indexProjetosAvaliadorMenu");
+
+        bttnVoltar1.setText("Voltar");
+        bttnVoltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnVoltar1ActionPerformed(evt);
+            }
+        });
+
+        bttnAtribuirNota.setText("Atribuir Nota");
+        bttnAtribuirNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnAtribuirNotaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout preencherAvaliacaoMenuLayout = new javax.swing.GroupLayout(preencherAvaliacaoMenu);
+        preencherAvaliacaoMenu.setLayout(preencherAvaliacaoMenuLayout);
+        preencherAvaliacaoMenuLayout.setHorizontalGroup(
+            preencherAvaliacaoMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(preencherAvaliacaoMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bttnAtribuirNota, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
+                .addComponent(bttnVoltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        preencherAvaliacaoMenuLayout.setVerticalGroup(
+            preencherAvaliacaoMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preencherAvaliacaoMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(preencherAvaliacaoMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bttnAtribuirNota)
+                    .addComponent(bttnVoltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        preencherAvaliacaoMenuLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bttnAtribuirNota, bttnVoltar1});
+
+        projetosAvaliadorMenuPanel.add(preencherAvaliacaoMenu, "preencherAvaliacaoMenu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(projetosAvaliadorMenuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(projetosAvaliadorContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(projetosAvaliadorMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,18 +401,16 @@ public class AvaProjetosView extends javax.swing.JFrame {
 
         int rowIndex = tabelaProjetosAvaliador.getSelectedRow();
 
-        idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
-
         if (rowIndex == -1) {
             JOptionPane.showMessageDialog(null, "Escolha um Projeto da tabela para avaliar.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            bttnPreencherAvaliacao.setVisible(false);
-            bttnFinalizarAvaliacao.setVisible(false);
+            idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
 
             CardLayout content = (CardLayout) (projetosAvaliadorContentPanel.getLayout());
             content.show(projetosAvaliadorContentPanel, "attrNota");
-
-            int idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
+            
+            CardLayout menu = (CardLayout) (projetosAvaliadorMenuPanel.getLayout());
+            menu.show(projetosAvaliadorMenuPanel, "preencherAvaliacaoMenu");
 
             projController = new ProjetoController();
             proj = projController.getProjetoPorId(idProjeto);
@@ -417,22 +434,28 @@ public class AvaProjetosView extends javax.swing.JFrame {
     private void bttnFinalizarAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnFinalizarAvaliacaoActionPerformed
 
         int rowIndex = tabelaProjetosAvaliador.getSelectedRow();
-        idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
+        
+        if (rowIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Escolha um Projeto da tabela para finalizar avaliação.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+        
+            idProjeto = (int) tabelaProjetosAvaliador.getModel().getValueAt(rowIndex, 0);
 
-        if (projController.checkNumeroAvaliadores(idProjeto) >= 3) {
-            if (projController.checkFinalizarProjeto(idProjeto)) {
-                if (projController.finalizaProjeto(idProjeto)) {
-                    JOptionPane.showMessageDialog(perguntasComboBox, "Projeto finalizado com sucesso.");
+            if (projController.checkNumeroAvaliadores(idProjeto) >= 3) {
+                if (projController.checkFinalizarProjeto(idProjeto)) {
+                    if (projController.finalizaProjeto(idProjeto)) {
+                        JOptionPane.showMessageDialog(perguntasComboBox, "Projeto finalizado com sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(perguntasComboBox, "Houve um erro ao finalizar o projeto.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(perguntasComboBox, "Houve um erro ao finalizar o projeto.");
+                    JOptionPane.showMessageDialog(perguntasComboBox, "Verifique se todos os avaliadores atribuiram"
+                            + " suas notas.");
                 }
             } else {
-                JOptionPane.showMessageDialog(perguntasComboBox, "Verifique se todos os avaliadores atribuiram"
-                        + " suas notas.");
+                JOptionPane.showMessageDialog(perguntasComboBox, "O projeto precisa ter no mínimo três avaliadores"
+                        + " para ser finalizado.");
             }
-        } else {
-            JOptionPane.showMessageDialog(perguntasComboBox, "O projeto precisa ter no mínimo três avaliadores"
-                    + " para ser finalizado.");
         }
 
     }//GEN-LAST:event_bttnFinalizarAvaliacaoActionPerformed
@@ -465,21 +488,18 @@ public class AvaProjetosView extends javax.swing.JFrame {
             } else {
                 textNota.setText("");
             }
-
+        } else {
+            textoExplicativo.setText("Quadro _ -");
+            questaoProjeto.setText("Questão");
+            quadroResposta.setText("");
+            textNota.setText("");
         }
+        
     }//GEN-LAST:event_perguntasComboBoxActionPerformed
 
     private void textNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNotaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textNotaActionPerformed
-
-    private void btnVoltarProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarProjetosActionPerformed
-        bttnPreencherAvaliacao.setVisible(true);
-        bttnFinalizarAvaliacao.setVisible(true);
-
-        CardLayout content = (CardLayout) (projetosAvaliadorContentPanel.getLayout());
-        content.show(projetosAvaliadorContentPanel, "avaliadorIndex");
-    }//GEN-LAST:event_btnVoltarProjetosActionPerformed
 
     private void textNotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNotaKeyTyped
 
@@ -489,23 +509,39 @@ public class AvaProjetosView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_textNotaKeyPressed
 
-    private void btnAtribuirNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtribuirNotaActionPerformed
-        if (projController.checkNota(textNota.getText())) {
-            String notaText = textNota.getText().replace(",", ".");
-            nota = Double.parseDouble(notaText);
-            idPergunta = perguntasComboBox.getSelectedIndex();
-            emailAvaliador = Sessao.getInstance().getUsuario().getEmail();
-            if (projController.atribuirNotaPergunta(idPergunta, emailAvaliador, idProjeto, nota)) {
-                JOptionPane.showMessageDialog(rootPane, "Nota atribuída com sucesso");
-                notas = projController.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Houve um erro ao atribuir a nota");
-            }
+    private void bttnVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnVoltar1ActionPerformed
+        CardLayout content = (CardLayout) (projetosAvaliadorContentPanel.getLayout());
+        content.show(projetosAvaliadorContentPanel, "avaliadorIndex");
+        
+        CardLayout menu = (CardLayout) (projetosAvaliadorMenuPanel.getLayout());
+        menu.show(projetosAvaliadorMenuPanel, "indexProjetosAvaliadorMenu");
+    }//GEN-LAST:event_bttnVoltar1ActionPerformed
+
+    private void bttnAtribuirNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnAtribuirNotaActionPerformed
+        
+        idPergunta = perguntasComboBox.getSelectedIndex();
+        System.out.println("ID PERGUNTA: " + idPergunta);
+        
+        if (idPergunta == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Escolha uma pergunta para atribuir a nota");
         } else {
-            JOptionPane.showMessageDialog(perguntasComboBox, "Valor de nota incorrreto."
+            if (projController.checkNota(textNota.getText())) {
+                String notaText = textNota.getText().replace(",", ".");
+                nota = Double.parseDouble(notaText);
+                //idPergunta = perguntasComboBox.getSelectedIndex();
+                emailAvaliador = Sessao.getInstance().getUsuario().getEmail();
+                if (projController.atribuirNotaPergunta(idPergunta, emailAvaliador, idProjeto, nota)) {
+                    JOptionPane.showMessageDialog(rootPane, "Nota atribuída com sucesso");
+                    notas = projController.getNotasProjetoPorAvaliador(idProjeto, emailAvaliador);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Houve um erro ao atribuir a nota");
+                }
+            } else {
+                JOptionPane.showMessageDialog(perguntasComboBox, "Valor de nota incorrreto."
                     + "\nInsira valores de 0 a 10.");
+            }
         }
-    }//GEN-LAST:event_btnAtribuirNotaActionPerformed
+    }//GEN-LAST:event_bttnAtribuirNotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -551,11 +587,12 @@ public class AvaProjetosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addNotaProjetoPanel;
-    private javax.swing.JButton btnAtribuirNota;
-    private javax.swing.JButton btnVoltarProjetos;
+    private javax.swing.JButton bttnAtribuirNota;
     private javax.swing.JButton bttnFinalizarAvaliacao;
     private javax.swing.JButton bttnPreencherAvaliacao;
     private javax.swing.JButton bttnVoltar;
+    private javax.swing.JButton bttnVoltar1;
+    private javax.swing.JPanel indexProjetosAvaliadorMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -563,6 +600,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
     private javax.swing.JLabel labelPerguntaCombo;
     private javax.swing.JLabel labelTituloProjeto;
     private javax.swing.JComboBox perguntasComboBox;
+    private javax.swing.JPanel preencherAvaliacaoMenu;
     private javax.swing.JPanel projetosAvaliadorContentPanel;
     private javax.swing.JPanel projetosAvaliadorIndex;
     private javax.swing.JPanel projetosAvaliadorMenuPanel;
