@@ -26,7 +26,9 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
         tabelaProjetosAdmin = projControler.updateTable(tabelaProjetosAdmin, "Em avaliação");
 
         // Esconde a coluna com os IDs.
-        tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
+        tabelaProjetosAdmin.getColumnModel().getColumn(0).setWidth(0);
+        tabelaProjetosAdmin.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabelaProjetosAdmin.getColumnModel().getColumn(0).setMinWidth(0);
 
         // Para utilização mais tarde
         //System.out.println("Id: " + tabelaProjetosAdmin.getModel().getValueAt(0, 0));
@@ -300,7 +302,7 @@ public class AdmAtribuirAvaliadores extends javax.swing.JFrame {
             ArrayList<Avaliador> avaliadores = new ArrayList<>();
             avaliadores = avaliadorController.getAvaliadoresAtivos();
             Avaliador a;
-            labelNomeProjeto.setText(tabelaProjetosAdmin.getValueAt(tabelaProjetosAdmin.getSelectedRow(), 0).toString());
+            labelNomeProjeto.setText(tabelaProjetosAdmin.getValueAt(tabelaProjetosAdmin.getSelectedRow(), 1).toString());
             comboAvaliadores.removeAllItems();
             for (Avaliador ava : avaliadores) {
                 comboAvaliadores.addItem(ava.getNome());

@@ -33,6 +33,9 @@ public class AvaProjetosView extends javax.swing.JFrame {
 
         projController = new ProjetoController();
         tabelaProjetosAvaliador = projController.updateTableProjetosAvaliador(tabelaProjetosAvaliador, emailAvaliador);
+        tabelaProjetosAvaliador.getColumnModel().getColumn(0).setWidth(0);
+        tabelaProjetosAvaliador.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabelaProjetosAvaliador.getColumnModel().getColumn(0).setMinWidth(0);
     }
 
     /**
@@ -445,6 +448,7 @@ public class AvaProjetosView extends javax.swing.JFrame {
                 if (projController.checkFinalizarProjeto(idProjeto)) {
                     if (projController.finalizaProjeto(idProjeto)) {
                         JOptionPane.showMessageDialog(perguntasComboBox, "Projeto finalizado com sucesso.");
+                        tabelaProjetosAvaliador = projController.updateTableProjetosAvaliador(tabelaProjetosAvaliador, emailAvaliador);
                     } else {
                         JOptionPane.showMessageDialog(perguntasComboBox, "Houve um erro ao finalizar o projeto.");
                     }

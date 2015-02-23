@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 public class AdmAcompanharProjetos extends javax.swing.JFrame {
 
     ProjetoController projController;
+    int idProjeto;
     
     /**
      * Creates new form ProjetosAdministrador
@@ -20,7 +21,10 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
         tabelaProjetosAdmin = projController.updateTable(tabelaProjetosAdmin, "Aprovado");
         
         // Esconde a coluna com os IDs.
-        //tabelaProjetosAdmin.removeColumn(tabelaProjetosAdmin.getColumnModel().getColumn(0));
+        
+        tabelaProjetosAdmin.getColumnModel().getColumn(0).setWidth(0);
+        tabelaProjetosAdmin.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabelaProjetosAdmin.getColumnModel().getColumn(0).setMinWidth(0);
     }
 
     /**
@@ -67,14 +71,14 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Título", "Líder", "Orientador", "Status"
+                "Id", "Título", "Líder", "Orientador", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -91,6 +95,7 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
             tabelaProjetosAdmin.getColumnModel().getColumn(1).setResizable(false);
             tabelaProjetosAdmin.getColumnModel().getColumn(2).setResizable(false);
             tabelaProjetosAdmin.getColumnModel().getColumn(3).setResizable(false);
+            tabelaProjetosAdmin.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
@@ -331,18 +336,20 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
         if (rowIndex == -1) {
             JOptionPane.showMessageDialog(null,"Escolha um Projeto da tabela para alterar o Status.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
+            
+            
             CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
             content.show(projetosAdminContentPanel, "altStatusProjeto");
         
             CardLayout menu = (CardLayout) (projetosAdminMenuPanel.getLayout());
             menu.show(projetosAdminMenuPanel, "altStatusMenuPanel");
 
-            //int idProjeto = (int) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 0);
-            String nomeLider = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 1);
+            idProjeto = (int) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 0);
+            //String nomeLider = (String) tabelaProjetosAdmin.getModel().getValueAt(rowIndex, 1);
         
             Projeto proj;
             projController = new ProjetoController();
-            proj = projController.getProjetoPorLider(nomeLider);
+            proj = projController.getProjetoPorId(idProjeto);
 
             tituloTextField.setText(proj.getTitulo());
             areaTextField.setText(proj.getArea());
@@ -379,7 +386,7 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
         if (escolha == JOptionPane.OK_OPTION) {
 
             projController = new ProjetoController();
-            message = projController.alterarStatusProjeto(nomeLider, novoStatus);
+            message = projController.alterarStatusProjeto(idProjeto, novoStatus);
 
             JOptionPane.showMessageDialog(null, message);
 
@@ -387,10 +394,13 @@ public class AdmAcompanharProjetos extends javax.swing.JFrame {
             CardLayout content = (CardLayout) (projetosAdminContentPanel.getLayout());
             content.show(projetosAdminContentPanel, "projetosAdminIndex");
         
+            tabelaProjetosAdmin = projController.updateTable(tabelaProjetosAdmin, "Aprovado");
+            
             CardLayout menu = (CardLayout) (projetosAdminMenuPanel.getLayout());
             menu.show(projetosAdminMenuPanel, "indexMenuPanel");
             
-            tabelaProjetosAdmin = projController.updateTable(tabelaProjetosAdmin, "Aprovado");
+            
+            
         }
         
     }//GEN-LAST:event_bttnConfirmarAltActionPerformed

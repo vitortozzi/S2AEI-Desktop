@@ -18,14 +18,14 @@ public class ProjetoController {
     private EnProjeto enProjeto;
     private XMLParser xmlParser;
 
-    public String alterarStatusProjeto(String nomeLider, String novoStatus) {
+    public String alterarStatusProjeto(int idProjeto, String novoStatus) {
 
         enProjeto = new EnProjeto();
 
         String message = "";
         boolean check;
 
-        check = enProjeto.alteraStatusProjetoAprovado(nomeLider, novoStatus);
+        check = enProjeto.alteraStatusProjetoAprovado(idProjeto, novoStatus);
 
         if (check) {
             message += "Status do projeto alterado com sucesso!";
@@ -136,16 +136,16 @@ public class ProjetoController {
         int indexTab = 0;
         for (int i = 0; i < projetos.size(); i++) {
             if (projetos.get(i).getStatus().equals(flagStatusProjeto)) {
-                tableModel.addRow(new Object[]{null, null, null, null});
-                //tabelaProjetos.setValueAt(projetos.get(i).getId(), indexTab, 0);
-                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), indexTab, 0);
-                tabelaProjetos.setValueAt(projetos.get(i).getLider(), indexTab, 1);
-                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), indexTab, 2);
-                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), indexTab, 3);
+                tableModel.addRow(new Object[]{null,null, null, null, null});
+                tabelaProjetos.setValueAt(projetos.get(i).getId(), indexTab, 0);
+                tabelaProjetos.setValueAt(projetos.get(i).getTitulo(), indexTab, 1);
+                tabelaProjetos.setValueAt(projetos.get(i).getLider(), indexTab, 2);
+                tabelaProjetos.setValueAt(projetos.get(i).getOrientador(), indexTab, 3);
+                tabelaProjetos.setValueAt(projetos.get(i).getStatus(), indexTab, 4);
                 indexTab++;
             }
         }
-
+        
         return tabelaProjetos;
     }
     
@@ -178,9 +178,8 @@ public class ProjetoController {
                 temp++;
             }
         }
-        
-        // Esconde a coluna com os IDs.
-        tabelaProjetos.removeColumn(tabelaProjetos.getColumnModel().getColumn(0));
+       
+    
 
         return tabelaProjetos;      
     }
