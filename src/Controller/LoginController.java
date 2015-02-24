@@ -2,7 +2,7 @@
 package Controller;
 
 import Model.Negocio.EnUsuario;
-import Model.Tabelas.Usuario;
+import Model.Entidades.Usuario;
 
 public class LoginController {
 

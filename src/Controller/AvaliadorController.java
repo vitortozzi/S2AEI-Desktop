@@ -2,8 +2,8 @@ package Controller;
 
 import Model.Negocio.EnAvaliador;
 import Model.Negocio.EnProjeto;
-import Model.Tabelas.Avaliador;
-import Model.Tabelas.Projeto;
+import Model.Entidades.Avaliador;
+import Model.Entidades.Projeto;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

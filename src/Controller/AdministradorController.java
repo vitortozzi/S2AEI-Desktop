@@ -2,7 +2,7 @@
 package Controller;
 
 import Model.Negocio.EnAdministrador;
-import Model.Tabelas.Administrador;
+import Model.Entidades.Administrador;
 
 import java.util.ArrayList;
 import javax.swing.JTable;

@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Negocio.EnProjeto;
-import Model.Tabelas.Projeto;
+import Model.Entidades.Projeto;
 import Utils.XMLParser;
 import View.ProfProjetosView;
 import java.io.IOException;

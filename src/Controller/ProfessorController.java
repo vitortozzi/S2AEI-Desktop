@@ -2,7 +2,7 @@
 package Controller;
 
 import Model.Negocio.EnProfessor;
-import Model.Tabelas.Professor;
+import Model.Entidades.Professor;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
